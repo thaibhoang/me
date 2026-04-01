@@ -4,6 +4,7 @@
 - Agent phai doc tai lieu trong `docs/` truoc khi implement tinh nang.
 - Uu tien dung Rails conventions truoc khi tao abstraction moi.
 - Bam sat phase trong `docs/FEATURE_ROADMAP.md`.
+- Moi task lien quan UI phai doi chieu `docs/DESIGN_REFERENCE.md` va file trong `design/`.
 
 ## Implementation Flow
 1. Xac dinh feature thuoc phase nao.
@@ -11,6 +12,7 @@
    - Scope: `docs/PROJECT_SCOPE.md`
    - Domain/content: `docs/ARCHITECTURE.md`, `docs/CONTENT_MODEL.md`
    - SEO/analytics: `docs/SEO_ANALYTICS.md`
+   - UI/UX: `docs/DESIGN_REFERENCE.md`
 3. De xuat thay doi nho, co the test duoc.
 4. Implement theo convention Rails.
 5. Them/cap nhat test.

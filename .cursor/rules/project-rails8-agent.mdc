@@ -8,6 +8,7 @@ alwaysApply: true
 ## Read context first
 - Truoc khi code, doc cac tai lieu trong `docs/` co lien quan den task.
 - Uu tien theo thu tu: `PROJECT_SCOPE` -> `FEATURE_ROADMAP` -> tai lieu ky thuat.
+- Neu task co UI, bat buoc doi chieu `docs/DESIGN_REFERENCE.md` va cac file trong `design/`.
 
 ## Scope and phase discipline
 - Chi implement tinh nang thuoc phase dang duoc yeu cau.
@@ -32,6 +33,7 @@ alwaysApply: true
 ## Documentation updates are required
 - Thay doi model/flow/SEO phai cap nhat file `docs/` lien quan.
 - Quyet dinh ky thuat quan trong phai ghi vao `docs/DECISIONS.md`.
+- Neu cap nhat layout/component pattern, cap nhat `docs/DESIGN_REFERENCE.md` khi can.
 
 ## Security baseline
 - Khong commit secrets hoac key files.

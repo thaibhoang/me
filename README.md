@@ -19,6 +19,7 @@ Website ca nhan duoc xay dung bang Rails 8 de:
 - `docs/ARCHITECTURE.md`: Kien truc domain va mapping tinh nang Rails.
 - `docs/CONTENT_MODEL.md`: Mo hinh noi dung, lifecycle bai viet, quy uoc slug/tag.
 - `docs/SEO_ANALYTICS.md`: Chuan SEO, Open Graph, analytics, event tracking.
+- `docs/DESIGN_REFERENCE.md`: Nguon tham chieu UI tu thu muc `design/`.
 - `docs/AGENT_WORKFLOW.md`: Quy trinh agent, Definition of Done, checklist giao hang.
 - `docs/QUALITY_GATES.md`: Bo quality gates bat buoc truoc merge/release.
 - `docs/DECISIONS.md`: Nhat ky quyet dinh ky thuat quan trong (ADR-lite).
