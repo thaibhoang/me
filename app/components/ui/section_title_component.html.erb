@@ -1,0 +1,6 @@
+<header>
+  <%= content_tag heading_tag, title, class: heading_classes %>
+  <% if subtitle.present? %>
+    <p class="mt-2 text-slate-300"><%= subtitle %></p>
+  <% end %>
+</header>

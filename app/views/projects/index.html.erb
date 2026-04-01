@@ -1,13 +1,12 @@
-<section>
-  <h1 class="text-3xl font-bold">Portfolio</h1>
-  <p class="mt-2 text-slate-300">Case study va ket qua du an.</p>
-</section>
+<%= render Ui::SectionTitleComponent.new(title: "Portfolio", subtitle: "Case study va ket qua du an.", level: 1, classes: "text-3xl font-bold") %>
 
 <section class="mt-8 grid gap-4 md:grid-cols-2">
   <% @projects.each do |project| %>
-    <article class="rounded border border-slate-800 p-5">
-      <h2 class="text-xl font-semibold"><%= link_to project.title, project_path(project.slug), class: "hover:text-emerald-300" %></h2>
-      <p class="mt-2 text-slate-300"><%= project.summary %></p>
-    </article>
+    <%= render Ui::CardComponent.new(classes: "p-5") do |card| %>
+      <% card.with_title do %>
+        <%= link_to project.title, project_path(project.slug), class: "text-xl hover:text-emerald-300" %>
+      <% end %>
+      <% card.with_body { project.summary } %>
+    <% end %>
   <% end %>
 </section>

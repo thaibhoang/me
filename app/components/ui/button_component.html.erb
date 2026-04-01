@@ -1,0 +1,5 @@
+<% if link? %>
+  <%= link_to label, href, class: button_classes %>
+<% else %>
+  <button type="<%= type %>" class="<%= button_classes %>"><%= label %></button>
+<% end %>

@@ -49,7 +49,7 @@ Cap nhat lan cuoi: 2026-04-01
 ### B. Hoan thien UI theo design
 - [ ] Doi chieu va polish giao dien theo `design/mobile/*` (mobile-first).
 - [ ] Bo sung responsive adjustments theo `design/pc/*`.
-- [ ] Chuan hoa component style dung lai (button, card, section title, spacing).
+- [x] Chuan hoa component style dung lai (button, card, section title, spacing) bang `view_component`.
 
 ### C. SEO + Analytics phase tiep theo
 - [ ] Tich hop analytics that (GA4 hoac Plausible).

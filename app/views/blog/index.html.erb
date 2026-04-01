@@ -1,23 +1,22 @@
-<section>
-  <h1 class="text-3xl font-bold">Blog</h1>
-  <p class="mt-2 text-slate-300">Filter theo category va tech badge.</p>
-</section>
+<%= render Ui::SectionTitleComponent.new(title: "Blog", subtitle: "Filter theo category va tech badge.", level: 1, classes: "text-3xl font-bold") %>
 
 <section class="mt-6 flex flex-wrap gap-2">
   <% @categories.each do |category| %>
-    <%= link_to category.name, blog_index_path(category: category.slug), class: "rounded border border-slate-700 px-3 py-1 text-sm" %>
+    <%= render Ui::ButtonComponent.new(label: category.name, href: blog_index_path(category: category.slug), variant: :chip) %>
   <% end %>
   <% @tags.each do |tag| %>
-    <%= link_to "##{tag.slug}", blog_index_path(tag: tag.slug), class: "rounded border border-emerald-700 px-3 py-1 text-sm text-emerald-300" %>
+    <%= render Ui::ButtonComponent.new(label: "##{tag.slug}", href: blog_index_path(tag: tag.slug), variant: :chip_active) %>
   <% end %>
 </section>
 
-<section class="mt-8 space-y-4">
+<%= render Ui::SectionBlockComponent.new(classes: "mt-8 space-y-4") do %>
   <% @posts.each do |post| %>
-    <article class="rounded border border-slate-800 p-4">
-      <h2 class="text-xl font-semibold"><%= link_to post.title, blog_post_path(post.slug), class: "hover:text-emerald-300" %></h2>
-      <p class="text-xs text-slate-400 mt-1"><%= post.published_at&.to_date || post.created_at.to_date %></p>
-      <p class="mt-2 text-slate-300"><%= post.excerpt %></p>
-    </article>
+    <%= render Ui::CardComponent.new do |card| %>
+      <% card.with_title do %>
+        <%= link_to post.title, blog_post_path(post.slug), class: "text-xl hover:text-emerald-300" %>
+      <% end %>
+      <% card.with_meta { post.published_at&.to_date || post.created_at.to_date } %>
+      <% card.with_body { post.excerpt } %>
+    <% end %>
   <% end %>
-</section>
+<% end %>
