@@ -1,0 +1,38 @@
+---
+description: Rails 8 personal brand project standards for all agent tasks
+alwaysApply: true
+---
+
+# Rails 8 Personal Brand Agent Rule
+
+## Read context first
+- Truoc khi code, doc cac tai lieu trong `docs/` co lien quan den task.
+- Uu tien theo thu tu: `PROJECT_SCOPE` -> `FEATURE_ROADMAP` -> tai lieu ky thuat.
+
+## Scope and phase discipline
+- Chi implement tinh nang thuoc phase dang duoc yeu cau.
+- Khong mo rong scope ngoai roadmap neu chua co chi dao ro.
+
+## Rails-first implementation
+- Uu tien Rails conventions, service object chi tao khi can thiet.
+- Uu tien SSR + Hotwire, tranh tang JS complexity som.
+
+## Quality gates
+- Moi thay doi phai co test phu hop (model/request/system/job).
+- Dam bao pass lint va security checks:
+  - `bin/rubocop`
+  - `bin/brakeman --no-pager`
+  - `bin/bundler-audit`
+  - `bin/importmap audit`
+
+## Public page SEO baseline
+- Route public moi phai co title, meta description, canonical.
+- Noi dung chia se can co Open Graph/Twitter metadata.
+
+## Documentation updates are required
+- Thay doi model/flow/SEO phai cap nhat file `docs/` lien quan.
+- Quyet dinh ky thuat quan trong phai ghi vao `docs/DECISIONS.md`.
+
+## Security baseline
+- Khong commit secrets hoac key files.
+- Sanitize markdown/rich-text output truoc khi render.
