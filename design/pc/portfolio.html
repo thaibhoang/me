@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#dee5ff",
+              "inverse-surface": "#faf8ff",
+              "primary-fixed-dim": "#24f07e",
+              "surface-bright": "#1f2b49",
+              "secondary": "#6e9bff",
+              "on-error": "#490006",
+              "on-tertiary-fixed-variant": "#005361",
+              "secondary-fixed-dim": "#acc3ff",
+              "surface-container-highest": "#192540",
+              "on-secondary-fixed": "#003076",
+              "on-tertiary-fixed": "#00343d",
+              "on-tertiary": "#005360",
+              "on-error-container": "#ffa8a3",
+              "surface-variant": "#192540",
+              "on-primary-fixed": "#004820",
+              "inverse-primary": "#006e35",
+              "on-surface-variant": "#a3aac4",
+              "on-secondary-container": "#f7f7ff",
+              "secondary-dim": "#0f6df3",
+              "outline-variant": "#40485d",
+              "tertiary-fixed": "#00dcfd",
+              "inverse-on-surface": "#4d556b",
+              "error-dim": "#d7383b",
+              "surface-tint": "#3fff8b",
+              "surface-container": "#0f1930",
+              "outline": "#6d758c",
+              "error-container": "#9f0519",
+              "on-tertiary-container": "#004955",
+              "on-primary-container": "#004f24",
+              "surface": "#060e20",
+              "tertiary-container": "#00dcfd",
+              "on-secondary-fixed-variant": "#004baf",
+              "primary-dim": "#24f07e",
+              "tertiary-fixed-dim": "#00cdec",
+              "tertiary-dim": "#00cdec",
+              "surface-container-lowest": "#000000",
+              "primary-fixed": "#3fff8b",
+              "surface-container-low": "#091328",
+              "secondary-fixed": "#c0d1ff",
+              "secondary-container": "#0058ca",
+              "on-background": "#dee5ff",
+              "error": "#ff716c",
+              "tertiary": "#7ae6ff",
+              "surface-dim": "#060e20",
+              "primary": "#3fff8b",
+              "primary-container": "#13ea79",
+              "background": "#060e20",
+              "on-secondary": "#001d4e",
+              "on-primary-fixed-variant": "#006832",
+              "surface-container-high": "#141f38",
+              "on-primary": "#005d2c"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"],
+              "mono": ["JetBrains Mono"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #060e20; }
+        .glass-nav { background: rgba(15, 25, 48, 0.7); backdrop-filter: blur(12px); }
+        .terminal-glow:focus-within { border-bottom: 2px solid #3fff8b; filter: drop-shadow(0 0 4px rgba(63, 255, 139, 0.5)); }
+        .mono-badge { font-family: 'JetBrains Mono', monospace; }
+        .hero-gradient { background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%); }
+        .ambient-glow { box-shadow: 0 16px 32px -8px rgba(63, 255, 139, 0.08); }
+    </style>
+</head>
+<body class="font-body text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/70 backdrop-blur-xl transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+<div class="text-2xl font-bold tracking-tighter text-emerald-400 font-['Space_Grotesk']">
+                THE_ARCHITECT
+            </div>
+<div class="hidden md:flex items-center space-x-8 font-['Space_Grotesk'] tracking-tight">
+<a class="text-slate-400 hover:text-emerald-200 transition-colors" href="#">Home</a>
+<a class="text-slate-400 hover:text-emerald-200 transition-colors" href="#">Blog</a>
+<a class="text-emerald-400 border-b-2 border-emerald-400 pb-1" href="#">Portfolio</a>
+<a class="text-slate-400 hover:text-emerald-200 transition-colors" href="#">About</a>
+<a class="text-slate-400 hover:text-emerald-200 transition-colors" href="#">Contact</a>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label font-bold px-6 py-2 rounded-full transition-all duration-300 scale-100 hover:scale-105">
+                Hire Me
+            </button>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
+<!-- Header & Filter Section -->
+<header class="mb-16">
+<h1 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter mb-6 text-on-surface">
+                Engineered <span class="text-primary italic">Artifacts_</span>
+</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl mb-12">
+                A curated selection of high-performance systems, distributed architectures, and experimental interfaces built for the next generation of the web.
+            </p>
+<!-- Filter Pills -->
+<div class="flex flex-wrap gap-3 items-center">
+<span class="text-on-surface-variant font-mono text-sm mr-4">FILTER_BY_STACK:</span>
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-label text-sm font-bold transition-all duration-300 shadow-[0_0_15px_rgba(63,255,139,0.3)]">All</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm hover:bg-surface-bright hover:text-primary transition-all duration-300">Rails</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm hover:bg-surface-bright hover:text-primary transition-all duration-300">AI / LLM</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm hover:bg-surface-bright hover:text-primary transition-all duration-300">AWS Cloud</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm hover:bg-surface-bright hover:text-primary transition-all duration-300">React</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm hover:bg-surface-bright hover:text-primary transition-all duration-300">TypeScript</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm hover:bg-surface-bright hover:text-primary transition-all duration-300">Rust</button>
+</div>
+</header>
+<!-- Project Grid (Asymmetric Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Project Card 1 (Large Feature) -->
+<div class="md:col-span-8 group relative bg-surface-container-low rounded-lg overflow-hidden ambient-glow transition-all duration-500 hover:bg-surface-container">
+<div class="aspect-[16/9] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" data-alt="Futuristic server room with glowing green fiber optic cables and digital data streams in a dark moody tech environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSCiUXnzdCSKMw7e8osTBjLY1IWEPw0bGkBdoWKb7cCF99fmgICqO4-t3eRtPlpVexLjp8I7Gd3ggeuw03BwCLklytytyhtndB_exKDh5cpvWsMN2fxyBioPZaMOVuGhb-KKrS0KTAPihpGmC1HJtJCR51EehjT8hGUMyYTqMb6D41KNU_3UMcgvtFrjOWbbfwN0upp7GQrzUlpNAqKL8cmEWaeYuV-VTmDQMuBwDfA29bd2mQbNTn2irPCysoLtktTZDPsjoJaWw"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline text-3xl font-bold tracking-tight text-on-surface">NeuralLink_Aggregator</h3>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_outward</span>
+</div>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-8 max-w-3xl">
+                        A real-time distributed data pipeline processing 50k+ events/sec using Kafka and Rust, featuring a custom AI-driven anomaly detection layer.
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto">
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">RUST</span>
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">KAFKA</span>
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">AWS_LAMBDA</span>
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">PYTORCH</span>
+</div>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="md:col-span-4 group bg-surface-container-low rounded-lg overflow-hidden ambient-glow transition-all duration-500 hover:bg-surface-container flex flex-col">
+<div class="aspect-square w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-70 group-hover:opacity-100" data-alt="Abstract geometric 3D render of interconnected floating crystalline structures in shades of emerald and deep blue" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9suvzZunyHVoM0GcD0EPmOgK7nPQSxFLmDU4Xj0B4y_6O15OMUWuIIG-x3lM0U0POwg-XzvrJyIBMU-ZJ8NAmCM6Qf5et5gkm41PUaDtMTPUS-_Uj4gAQxVohhQ3Fes71Y5lENaSMbCFzKy5EbIu1ctHSVNafD6gvELuQpN-SLCi-XZeTnpg_3ypdkjoMT-13To9Stp5jRJCLlDcKELkZLyqYuJEVrNfhHC8bbBrJ7ChPL7U_ZSIUOKTt5G01rliBKD6HJuA0wYA"/>
+</div>
+<div class="p-8 flex-grow flex flex-col">
+<h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">Prism_UI_System</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                        An atomic design-compliant library for large-scale enterprise React applications.
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto">
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">REACT</span>
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">TYPESCRIPT</span>
+</div>
+</div>
+</div>
+<!-- Project Card 3 -->
+<div class="md:col-span-4 group bg-surface-container-low rounded-lg overflow-hidden ambient-glow transition-all duration-500 hover:bg-surface-container">
+<div class="aspect-video w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-70 group-hover:opacity-100" data-alt="Digital globe representation with glowing connection points and data lines on a dark blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACwwMdyLC2MBLdHiSXqAMXx2RjEH3KhKQA4mMoI4f2LraXiTalnB7p-pWl7EHaABnzbWATD8-mtiJzm2PBEdHJFI8BODV-8ef78OLcvGI0NlXXHoo-27JMafCW-dx34UkTs6LwX30m-DKzrX6i5UXAk0ajO8ZUrqZRsV325o2scbsWLylT5kSQqmvkzT4UqDzv0btTmO1s0ft-04FjUn7N12jNxyLcXMDE-vLMfuxho_GLu3u1zQ5AUMQ15SUrKufNDe6ofIEfh_I"/>
+</div>
+<div class="p-8">
+<h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">Vanguard_Security</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                        Automated penetration testing suite for Rails backends with integrated reporting.
+                    </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">RAILS</span>
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">POSTGRES</span>
+</div>
+</div>
+</div>
+<!-- Project Card 4 (Horizontal Content) -->
+<div class="md:col-span-8 group bg-surface-container-low rounded-lg overflow-hidden ambient-glow transition-all duration-500 hover:bg-surface-container flex flex-col md:flex-row">
+<div class="md:w-1/2 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-70 group-hover:opacity-100" data-alt="Macro shot of a high-tech circuit board with glowing neon components and intricate soldering paths" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOtL0KL3nfc0jB_hbbW10_aYS2Aj8iJSmdxNT-rRBEQWzbJ9Sna2RgiKXhlPeWX_uG_J63e1wAA5T9KrSgSuHXfW2VGpiwrPTMHsh4wSx-e8gfUG-WewCUCBoGA-nf3eB9Sd35ubHJAKM7tUTZGqKTgZJIDXKcz8dUS0cHdDY5zcNaugw1FXRactaOynV14QcoKapktwSLH1kQuSX_FfXY6V1jQze2TUSDmQ6El1Xse5zPQAk10s9d-tvnDglrYojvMkRT82OzXMM"/>
+</div>
+<div class="md:w-1/2 p-8 flex flex-col justify-center">
+<h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">Titan_Engine</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-8">
+                        Custom-built game engine module for procedural terrain generation in C++. High optimization for VR environments.
+                    </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">C++</span>
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">OPENGL</span>
+<span class="px-3 py-1 bg-surface-container-highest text-primary font-mono text-xs rounded-sm transition-colors hover:bg-primary hover:text-on-primary">MATH</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination / CTA -->
+<div class="mt-20 flex flex-col items-center">
+<button class="group flex items-center gap-4 text-on-surface-variant hover:text-primary transition-colors font-label uppercase tracking-widest text-sm">
+                View Archived Projects
+                <span class="material-symbols-outlined text-sm group-hover:translate-y-1 transition-transform">keyboard_double_arrow_down</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-950 w-full py-12 px-8 border-t border-slate-800/50">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 font-['Inter'] text-sm tracking-wide text-slate-400">
+<div class="flex flex-col">
+<div class="text-lg font-bold text-emerald-400 mb-4 font-['Space_Grotesk']">THE_ARCHITECT</div>
+<p class="max-w-xs mb-6">Mastering the stack from low-level systems to high-fidelity interfaces. Engineering excellence, delivered.</p>
+<div class="flex space-x-6">
+<a class="text-slate-500 hover:text-emerald-400 transition-colors scale-105 transition-transform" href="#">GitHub</a>
+<a class="text-slate-500 hover:text-emerald-400 transition-colors scale-105 transition-transform" href="#">LinkedIn</a>
+<a class="text-slate-500 hover:text-emerald-400 transition-colors scale-105 transition-transform" href="#">Twitter</a>
+</div>
+</div>
+<div>
+<h4 class="text-on-surface font-bold mb-4 uppercase tracking-tighter">Navigation</h4>
+<ul class="space-y-3">
+<li><a class="text-slate-500 hover:text-emerald-400 transition-colors" href="#">Case Studies</a></li>
+<li><a class="text-slate-500 hover:text-emerald-400 transition-colors" href="#">Technical Stack</a></li>
+<li><a class="text-emerald-400" href="#">Portfolio Gallery</a></li>
+<li><a class="text-slate-500 hover:text-emerald-400 transition-colors" href="#">Architecture Blog</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-surface font-bold mb-4 uppercase tracking-tighter">Terminal Newsletter</h4>
+<p class="mb-4">Weekly technical insights delivered straight to your console.</p>
+<div class="flex items-center border-b border-outline-variant/30 pb-2 terminal-glow">
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-slate-600 w-full font-mono" placeholder="user@domain.sh" type="email"/>
+<button class="text-primary hover:text-primary-container transition-colors p-2">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<p class="mt-8 text-xs text-slate-600 italic">© 2024 THE_ARCHITECT. Built for the Terminal Sublime.</p>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#dee5ff",
+              "inverse-surface": "#faf8ff",
+              "primary-fixed-dim": "#24f07e",
+              "surface-bright": "#1f2b49",
+              "secondary": "#6e9bff",
+              "on-error": "#490006",
+              "on-tertiary-fixed-variant": "#005361",
+              "secondary-fixed-dim": "#acc3ff",
+              "surface-container-highest": "#192540",
+              "on-secondary-fixed": "#003076",
+              "on-tertiary-fixed": "#00343d",
+              "on-tertiary": "#005360",
+              "on-error-container": "#ffa8a3",
+              "surface-variant": "#192540",
+              "on-primary-fixed": "#004820",
+              "inverse-primary": "#006e35",
+              "on-surface-variant": "#a3aac4",
+              "on-secondary-container": "#f7f7ff",
+              "secondary-dim": "#0f6df3",
+              "outline-variant": "#40485d",
+              "tertiary-fixed": "#00dcfd",
+              "inverse-on-surface": "#4d556b",
+              "error-dim": "#d7383b",
+              "surface-tint": "#3fff8b",
+              "surface-container": "#0f1930",
+              "outline": "#6d758c",
+              "error-container": "#9f0519",
+              "on-tertiary-container": "#004955",
+              "on-primary-container": "#004f24",
+              "surface": "#060e20",
+              "tertiary-container": "#00dcfd",
+              "on-secondary-fixed-variant": "#004baf",
+              "primary-dim": "#24f07e",
+              "tertiary-fixed-dim": "#00cdec",
+              "tertiary-dim": "#00cdec",
+              "surface-container-lowest": "#000000",
+              "primary-fixed": "#3fff8b",
+              "surface-container-low": "#091328",
+              "secondary-fixed": "#c0d1ff",
+              "secondary-container": "#0058ca",
+              "on-background": "#dee5ff",
+              "error": "#ff716c",
+              "tertiary": "#7ae6ff",
+              "surface-dim": "#060e20",
+              "primary": "#3fff8b",
+              "primary-container": "#13ea79",
+              "background": "#060e20",
+              "on-secondary": "#001d4e",
+              "on-primary-fixed-variant": "#006832",
+              "surface-container-high": "#141f38",
+              "on-primary": "#005d2c"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(15, 25, 48, 0.7);
+        backdrop-filter: blur(12px);
+      }
+      .terminal-glow:focus-within {
+        border-bottom: 2px solid #3fff8b;
+        filter: drop-shadow(0 0 4px rgba(63, 255, 139, 0.4));
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 selection:text-primary">
+<!-- TopNavBar Component -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/70 backdrop-blur-xl transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+<div class="text-2xl font-bold tracking-tighter text-emerald-400 font-['Space_Grotesk']">THE_ARCHITECT</div>
+<div class="hidden md:flex items-center gap-8 font-['Space_Grotesk'] tracking-tight">
+<a class="text-slate-400 hover:text-emerald-200 transition-colors" href="#">Home</a>
+<a class="text-slate-400 hover:text-emerald-200 transition-colors" href="#">Blog</a>
+<a class="text-slate-400 hover:text-emerald-200 transition-colors" href="#">Portfolio</a>
+<a class="text-emerald-400 border-b-2 border-emerald-400 pb-1" href="#">About</a>
+<a class="text-slate-400 hover:text-emerald-200 transition-colors" href="#">Contact</a>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary font-label px-6 py-2 rounded-full font-bold uppercase text-xs tracking-widest hover:scale-105 transition-transform">
+                Hire Me
+            </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-32 pb-24 max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+<!-- Left Column: Identity Anchor -->
+<aside class="lg:col-span-4 space-y-12">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+<div class="relative aspect-square rounded-lg overflow-hidden border border-outline-variant/20">
+<img class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" data-alt="Professional portrait of a senior software architect with short dark hair and a confident expression, dramatic cinematic low-key studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAODBU6fn1-MU3kGCcNX9CGJWO0JMwq0c1bw1WUh32DzgUUpxxgzgW7TU1vvIFweWoVBO4u3eh_IO27l2dggwAGtl7zPdHukGxZNGB0Sv5qfs_EYPvEv_uTouZ2lukMdrEWej9lEuspK7uZUC4DMu5UpyKxwWwf8gMKhg7BNaOkhFVv6C4qWlWBq6PmEYM2tyWJpom2rM1K5UwkVx--NL6AflN9TX6EFgumrf0Wf8H0THyxZxjbwc-WkOMA3KPnLTkaMWWO2ZPc9Jg"/>
+</div>
+</div>
+<div class="space-y-6">
+<h1 class="font-headline text-4xl font-bold tracking-tighter text-on-surface">
+                        Alexandre <span class="text-primary">Vance</span>
+</h1>
+<p class="text-on-surface-variant leading-relaxed">
+                        Principal Systems Architect specializing in distributed consensus, high-concurrency kernels, and neural-symbolic integration.
+                    </p>
+<div class="flex flex-col gap-4">
+<a class="flex items-center gap-4 group text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="p-3 rounded-full bg-surface-container-high group-hover:bg-primary/10">
+<span class="material-symbols-outlined text-lg">code</span>
+</span>
+<span class="font-label text-sm tracking-wide">github.com/thearchitect</span>
+</a>
+<a class="flex items-center gap-4 group text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="p-3 rounded-full bg-surface-container-high group-hover:bg-primary/10">
+<span class="material-symbols-outlined text-lg">terminal</span>
+</span>
+<span class="font-label text-sm tracking-wide">linkedin.com/in/avance</span>
+</a>
+<a class="flex items-center gap-4 group text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="p-3 rounded-full bg-surface-container-high group-hover:bg-primary/10">
+<span class="material-symbols-outlined text-lg">share</span>
+</span>
+<span class="font-label text-sm tracking-wide">twitter.com/vance_arch</span>
+</a>
+</div>
+</div>
+<div class="p-8 rounded-lg bg-surface-container-low border border-outline-variant/10">
+<h3 class="font-headline text-xs uppercase tracking-[0.2em] text-secondary mb-4">Availability</h3>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-sm font-label">Open for Q4 Advisory Roles</span>
+</div>
+</div>
+</aside>
+<!-- Right Column: Narrative & Resume -->
+<div class="lg:col-span-8 space-y-24">
+<!-- Narrative Bio -->
+<section>
+<h2 class="font-headline text-5xl font-bold tracking-tight mb-8">
+                        The Architect of <br/>
+<span class="text-primary-dim">Digital Sanity.</span>
+</h2>
+<div class="space-y-6 text-lg text-on-surface-variant leading-relaxed font-light">
+<p>
+                            I build systems that don't just scale—they <span class="text-on-surface font-medium">endure</span>. With over 15 years in the trenches of low-latency infrastructure and complex API design, I bridge the gap between high-level business logic and the raw physics of hardware.
+                        </p>
+<p>
+                            My philosophy is rooted in the "Terminal Sublime"—the beauty of a clean, performant abstraction that handles millions of requests without a flicker. I believe in boring technology for exciting problems, and cutting-edge research for impossible ones.
+                        </p>
+</div>
+</section>
+<!-- Experience Timeline -->
+<section>
+<div class="flex items-end justify-between mb-12">
+<h3 class="font-headline text-3xl font-bold tracking-tight">Experience</h3>
+<div class="h-[1px] flex-grow bg-outline-variant/20 mx-8 mb-3"></div>
+<span class="font-label text-xs uppercase tracking-widest text-outline">v2.4.0_Stable</span>
+</div>
+<div class="space-y-12 relative before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[1px] before:bg-outline-variant/30 pl-8">
+<!-- Timeline Item 1 -->
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface shadow-[0_0_12px_rgba(63,255,139,0.4)]"></div>
+<div class="space-y-4">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div>
+<h4 class="text-xl font-bold text-on-surface">Staff Engineer &amp; Core Architect</h4>
+<p class="text-secondary font-label">Global-Scale Infra Corp</p>
+</div>
+<span class="px-4 py-1 rounded-full bg-surface-container text-xs font-label text-outline border border-outline-variant/20">2021 — Present</span>
+</div>
+<p class="text-on-surface-variant leading-relaxed">
+                                    Led the migration of a legacy monolithic payment processor to a Rust-based microservices architecture. Improved throughput by 400% while reducing infrastructure costs by $1.2M annually.
+                                </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">Rust</span>
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">Kubernetes</span>
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">gRPC</span>
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">Kafka</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-outline-variant border-4 border-surface"></div>
+<div class="space-y-4">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div>
+<h4 class="text-xl font-bold text-on-surface">Senior Fullstack Lead</h4>
+<p class="text-secondary font-label">FinTech Unicorn</p>
+</div>
+<span class="px-4 py-1 rounded-full bg-surface-container text-xs font-label text-outline border border-outline-variant/20">2018 — 2021</span>
+</div>
+<p class="text-on-surface-variant leading-relaxed">
+                                    Architected the real-time dashboard used by 2M+ active traders. Focused on sub-100ms data visualization and state management across geographically distributed nodes.
+                                </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">Go</span>
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">React</span>
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">Redis</span>
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">WebSockets</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-outline-variant border-4 border-surface"></div>
+<div class="space-y-4">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div>
+<h4 class="text-xl font-bold text-on-surface">Founding Engineer</h4>
+<p class="text-secondary font-label">Early-Stage Health Startup</p>
+</div>
+<span class="px-4 py-1 rounded-full bg-surface-container text-xs font-label text-outline border border-outline-variant/20">2015 — 2018</span>
+</div>
+<p class="text-on-surface-variant leading-relaxed">
+                                    Built the initial MVP from scratch. Designed a HIPAA-compliant data pipeline for processing wearable device telemetry at scale.
+                                </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">Node.js</span>
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">PostgreSQL</span>
+<span class="px-3 py-1 rounded-sm bg-surface-container-highest text-[10px] font-mono text-primary uppercase">AWS</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Skills Bento Grid -->
+<section>
+<h3 class="font-headline text-3xl font-bold tracking-tight mb-12">Stack Mastery</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="p-8 rounded-lg bg-surface-container-low border border-outline-variant/10 hover:border-primary/20 transition-all group">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<h4 class="font-headline font-bold text-xl">Backend</h4>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">Rust</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">Go</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">PostgreSQL</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">GraphQL</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">C++</span>
+</div>
+</div>
+<div class="p-8 rounded-lg bg-surface-container-low border border-outline-variant/10 hover:border-secondary/20 transition-all group">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">layers</span>
+<h4 class="font-headline font-bold text-xl">Frontend</h4>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">Next.js</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">TypeScript</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">TailwindCSS</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">Three.js</span>
+</div>
+</div>
+<div class="p-8 rounded-lg bg-surface-container-low border border-outline-variant/10 hover:border-tertiary/20 transition-all group">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">cloud</span>
+<h4 class="font-headline font-bold text-xl">Cloud &amp; DevOps</h4>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">Terraform</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">Docker</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">AWS</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">CI/CD Pipelines</span>
+</div>
+</div>
+<div class="p-8 rounded-lg bg-surface-container-low border border-outline-variant/10 hover:border-error/20 transition-all group">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<h4 class="font-headline font-bold text-xl">AI &amp; ML</h4>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">PyTorch</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">TensorFlow</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">LLM Fine-tuning</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-sm font-label text-on-surface-variant">LangChain</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Floating Action Button: Fixed position CV Download -->
+<div class="fixed bottom-12 right-12 z-50">
+<button class="flex items-center gap-3 bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-4 rounded-full font-headline font-bold shadow-xl hover:scale-105 active:scale-95 transition-all group">
+<span class="material-symbols-outlined group-hover:animate-bounce">download</span>
+<span class="uppercase tracking-widest text-xs">Download PDF CV</span>
+</button>
+</div>
+<!-- Footer Component -->
+<footer class="bg-slate-950 w-full py-12 px-8 border-t border-slate-800/50">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+<div>
+<div class="text-lg font-bold text-emerald-400 mb-4 font-headline">THE_ARCHITECT</div>
+<p class="font-['Inter'] text-sm tracking-wide text-slate-400">
+                    Designing systems that stand the test of time and traffic.
+                </p>
+</div>
+<div class="flex flex-col gap-2">
+<h5 class="text-on-surface font-headline font-bold mb-2">Network</h5>
+<a class="text-slate-500 hover:text-emerald-400 transition-colors font-['Inter'] text-sm" href="#">GitHub</a>
+<a class="text-slate-500 hover:text-emerald-400 transition-colors font-['Inter'] text-sm" href="#">LinkedIn</a>
+<a class="text-slate-500 hover:text-emerald-400 transition-colors font-['Inter'] text-sm" href="#">Twitter</a>
+<a class="text-slate-500 hover:text-emerald-400 transition-colors font-['Inter'] text-sm" href="#">Newsletter</a>
+</div>
+<div class="flex flex-col justify-end text-right">
+<p class="font-['Inter'] text-sm tracking-wide text-slate-400">
+                    © 2024 THE_ARCHITECT. Built for the Terminal Sublime.
+                </p>
+</div>
+</div>
+</footer>
+</body></html>
