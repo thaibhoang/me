@@ -68,3 +68,6 @@ group :test do
 end
 
 gem "dotenv", "~> 3.2"
+
+gem "rails_admin", "~> 3.3"
+gem "devise", "~> 5.0"

@@ -82,3 +82,6 @@
   - `read` (1)
   - `archived` (2)
 - MVP hien tai dung `content:text` cho bai viet (SSR), chua bat Action Text.
+- Co them `AdminUser` de quan tri noi bo:
+  - Auth qua Devise (database_authenticatable, recoverable, rememberable, validatable)
+  - Khong mo dang ky cong khai cho admin (`skip: [:registrations]`)

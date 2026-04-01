@@ -38,3 +38,10 @@ Su dung file nay de luu cac quyet dinh ky thuat quan trong.
 - Alternatives considered: Dat meta rieng le tung view.
 - Consequences: Tranh thieu metadata o page moi, de audit SEO hon.
 - Owner: Project team
+
+### [2026-04-01] Use RailsAdmin + Devise for MVP internal CMS
+- Context: Can mini CMS `/admin` de CRUD nhanh cho Post/Project/Category/Tag ma khong mo rong scope xay giao dien admin rieng.
+- Decision: Dung `rails_admin` cho admin panel va `devise` voi model `AdminUser` de bao ve khu vuc admin.
+- Alternatives considered: Tu xay admin UI bang SSR/Hotwire; HTTP Basic Auth thu cong cho toan bo `/admin`.
+- Consequences: Giam thoi gian trien khai MVP, doi lai phu thuoc vao importmap workaround cho rails_admin tren Rails 8.
+- Owner: Project team

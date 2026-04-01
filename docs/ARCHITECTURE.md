@@ -69,10 +69,15 @@
   - `/about`
   - `/contact` (GET + POST submit)
   - `/sitemap.xml`
+- Internal CMS/auth da trien khai:
+  - `/admin` qua `RailsAdmin::Engine`
+  - Dang nhap admin qua Devise (`AdminUser`)
+  - Route auth admin: `/admin_users/sign_in`, `/admin_users/sign_out`
 - Domain models da tao cho MVP:
   - Blog: `Post`, `Category`, `Tag`, `PostTag`
   - Portfolio: `Project`, `ProjectLink`, `ProjectVisual`, `ProjectMetric`, `ProjectAchievement`
   - About/Contact: `Profile`, `Experience`, `Skill`, `SocialLink`, `ContactMessage`
+  - Admin: `AdminUser`
 - Rang buoc DB da ap dung:
   - Slug unique index cho `posts`, `projects`, `categories`, `tags`
   - Check constraint cho status enum (`posts`, `projects`, `contact_messages`)
@@ -96,3 +101,12 @@
 - Blog index filters.
 - Project detail public.
 - Invalidate cache khi publish/unpublish post hoac cap nhat project featured.
+
+## Admin Operations (MVP)
+- Admin panel dung RailsAdmin, uu tien CRUD:
+  - `Post`, `Project`, `Category`, `Tag`
+- Co mo rong de nhap content that:
+  - `Profile`, `SocialLink`, `Experience`, `Skill`
+  - `ProjectLink`, `ProjectVisual`, `ProjectMetric`, `ProjectAchievement`
+- Bootstrap tai khoan admin ban dau qua task:
+  - `ADMIN_EMAIL=... ADMIN_PASSWORD=... bin/rails admin:bootstrap`
