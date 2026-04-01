@@ -61,6 +61,23 @@
   - `/admin/tags`
   - `/admin/categories`
 
+## Implemented MVP Snapshot (2026-04-01)
+- Public routes da trien khai:
+  - `/` home
+  - `/blog`, `/blog/:slug`
+  - `/projects`, `/projects/:slug`
+  - `/about`
+  - `/contact` (GET + POST submit)
+  - `/sitemap.xml`
+- Domain models da tao cho MVP:
+  - Blog: `Post`, `Category`, `Tag`, `PostTag`
+  - Portfolio: `Project`, `ProjectLink`, `ProjectVisual`, `ProjectMetric`, `ProjectAchievement`
+  - About/Contact: `Profile`, `Experience`, `Skill`, `SocialLink`, `ContactMessage`
+- Rang buoc DB da ap dung:
+  - Slug unique index cho `posts`, `projects`, `categories`, `tags`
+  - Check constraint cho status enum (`posts`, `projects`, `contact_messages`)
+  - FK cascade/nullify cho bang con theo use-case
+
 ## Markdown Strategy
 - Nguoi viet ky thuat can markdown cho code snippet.
 - Huong de xuat:

@@ -1,0 +1,35 @@
+<section class="space-y-6">
+  <p class="text-xs uppercase tracking-widest text-emerald-400">System Ready</p>
+  <h1 class="text-4xl font-bold">Architecting Scalable Digital Infrastructure.</h1>
+  <p class="max-w-2xl text-slate-300">
+    Toi xay dung nen tang backend hieu nang cao va chia se cac bai hoc thuc chien qua blog.
+  </p>
+  <div class="flex gap-3">
+    <%= link_to "View Projects", projects_index_path, class: "rounded bg-emerald-500 px-4 py-2 text-black font-semibold" %>
+    <%= link_to "Read Blog", blog_index_path, class: "rounded border border-slate-700 px-4 py-2" %>
+  </div>
+</section>
+
+<section class="mt-14">
+  <h2 class="text-2xl font-semibold mb-4">Featured Projects</h2>
+  <div class="grid gap-4 md:grid-cols-3">
+    <% @featured_projects.each do |project| %>
+      <article class="rounded border border-slate-800 p-4">
+        <h3 class="font-semibold"><%= link_to project.title, project_path(project.slug), class: "hover:text-emerald-300" %></h3>
+        <p class="mt-2 text-sm text-slate-300"><%= project.summary %></p>
+      </article>
+    <% end %>
+  </div>
+</section>
+
+<section class="mt-14">
+  <h2 class="text-2xl font-semibold mb-4">Latest Posts</h2>
+  <div class="space-y-3">
+    <% @latest_posts.each do |post| %>
+      <article class="rounded border border-slate-800 p-4">
+        <h3 class="font-semibold"><%= link_to post.title, blog_post_path(post.slug), class: "hover:text-emerald-300" %></h3>
+        <p class="mt-2 text-sm text-slate-300"><%= post.excerpt %></p>
+      </article>
+    <% end %>
+  </div>
+</section>

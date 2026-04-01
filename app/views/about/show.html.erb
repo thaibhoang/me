@@ -1,0 +1,24 @@
+<section class="space-y-4">
+  <h1 class="text-3xl font-bold">About</h1>
+  <% if @profile.present? %>
+    <p class="text-xl"><%= @profile.full_name %> - <%= @profile.headline %></p>
+    <p class="text-slate-300"><%= @profile.bio %></p>
+    <% if @profile.cv_url.present? %>
+      <a href="<%= @profile.cv_url %>" class="inline-block rounded bg-emerald-500 px-4 py-2 text-black font-semibold">Download CV</a>
+    <% end %>
+  <% else %>
+    <p class="text-slate-300">Chua co du lieu profile.</p>
+  <% end %>
+</section>
+
+<section class="mt-10">
+  <h2 class="text-2xl font-semibold mb-3">Experience</h2>
+  <div class="space-y-3">
+    <% @profile&.experiences&.each do |experience| %>
+      <article class="rounded border border-slate-800 p-4">
+        <h3 class="font-semibold"><%= experience.role %> - <%= experience.company %></h3>
+        <p class="text-sm text-slate-400"><%= [experience.start_on, experience.end_on || "Now"].join(" - ") %></p>
+      </article>
+    <% end %>
+  </div>
+</section>

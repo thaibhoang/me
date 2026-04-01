@@ -69,3 +69,16 @@
   - draft -> scheduled/published
   - scheduled -> published/archived
   - published -> archived
+
+## MVP Implementation Notes (2026-04-01)
+- Post status hien dang su dung enum:
+  - `draft` (0)
+  - `published` (1)
+- Project status hien dang su dung enum:
+  - `draft` (0)
+  - `published` (1)
+- Contact message status hien dang su dung enum:
+  - `unread` (0)
+  - `read` (1)
+  - `archived` (2)
+- MVP hien tai dung `content:text` cho bai viet (SSR), chua bat Action Text.

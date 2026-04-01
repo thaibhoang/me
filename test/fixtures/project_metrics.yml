@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  name: MyString
+  legacy_value: MyString
+  improved_value: MyString
+  position: 1
+
+two:
+  project: two
+  name: MyString
+  legacy_value: MyString
+  improved_value: MyString
+  position: 1

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  profile: one
+  role: MyString
+  company: MyString
+  start_on: 2026-04-01
+  end_on: 2026-04-01
+  description: MyText
+  position: 1
+
+two:
+  profile: two
+  role: MyString
+  company: MyString
+  start_on: 2026-04-01
+  end_on: 2026-04-01
+  description: MyText
+  position: 1

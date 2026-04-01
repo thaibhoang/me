@@ -24,3 +24,17 @@ Su dung file nay de luu cac quyet dinh ky thuat quan trong.
 - Alternatives considered: Tu xay comments bang Hotwire ngay tu dau.
 - Consequences: Trien khai nhanh, phu thuoc GitHub Discussions.
 - Owner: Project team
+
+### [2026-04-01] MVP content stack uses plain Active Record text fields
+- Context: Can ra MVP nhanh cho publish/showcase/contact flow, truoc khi mo rong rich editor.
+- Decision: Dung `content:text` cho Post va `image_url` cho media links trong Phase 1; chua bat Action Text/Active Storage.
+- Alternatives considered: Bat Action Text + Active Storage ngay tu dau.
+- Consequences: Toc do trien khai nhanh hon, doi lai can migration nang cap sau khi mo rong CMS.
+- Owner: Project team
+
+### [2026-04-01] Public SEO baseline centralized in Application layout
+- Context: Moi public route deu phai co title/meta/canonical va social tags.
+- Decision: Dat metadata helper o `ApplicationController` va render OG/Twitter tags trong layout chung.
+- Alternatives considered: Dat meta rieng le tung view.
+- Consequences: Tranh thieu metadata o page moi, de audit SEO hon.
+- Owner: Project team

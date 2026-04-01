@@ -72,3 +72,16 @@
 - Kiem tra preview link bang social debugger.
 - Kiem tra sitemap reachable va dung noi dung.
 - Kiem tra metadata voi browser devtools.
+
+## MVP Baseline Da Trien Khai (2026-04-01)
+- Meta tags da duoc dat tai layout theo tung page metadata:
+  - title
+  - description
+  - canonical
+  - Open Graph (`og:title`, `og:description`, `og:type`, `og:url`, `og:image`)
+  - Twitter card (`summary_large_image`, title/description/image)
+- `sitemap.xml` da expose public route va chi dua `Post.published`, `Project.published`.
+- `public/robots.txt` da cho phep crawl page public, disallow `/admin`, va khai bao sitemap.
+- Event baseline da duoc log theo convention:
+  - `page_view`
+  - `contact_submit`
