@@ -35,18 +35,19 @@
   </head>
 
   <body class="bg-slate-950 text-slate-100">
-    <header class="border-b border-slate-800">
-      <nav class="container mx-auto px-5 py-4 flex items-center justify-between">
-        <%= link_to "THE_ARCHITECT", root_path, class: "font-semibold tracking-wide text-emerald-400" %>
-        <div class="flex items-center gap-4 text-sm">
-          <%= link_to "Blog", blog_index_path, class: "hover:text-emerald-300" %>
-          <%= link_to "Portfolio", projects_index_path, class: "hover:text-emerald-300" %>
-          <%= link_to "About", about_path, class: "hover:text-emerald-300" %>
-          <%= link_to "Contact", contact_path, class: "hover:text-emerald-300" %>
+    <header class="fixed top-0 z-50 w-full border-b border-slate-800/60 bg-slate-950/90 backdrop-blur">
+      <nav class="mx-auto flex h-20 w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+        <%= link_to "THE_ARCHITECT", root_path, class: "text-xl font-semibold tracking-tight text-emerald-400 sm:text-2xl" %>
+        <div class="order-3 flex w-full items-center justify-between gap-2 text-xs uppercase tracking-wide sm:order-2 sm:w-auto sm:gap-6 sm:text-sm sm:normal-case sm:tracking-normal">
+          <%= link_to "Blog", blog_index_path, class: "hover:text-emerald-300 #{current_page?(blog_index_path) ? 'text-emerald-300' : 'text-slate-300'}" %>
+          <%= link_to "Portfolio", projects_index_path, class: "hover:text-emerald-300 #{current_page?(projects_index_path) ? 'text-emerald-300' : 'text-slate-300'}" %>
+          <%= link_to "About", about_path, class: "hover:text-emerald-300 #{current_page?(about_path) ? 'text-emerald-300' : 'text-slate-300'}" %>
+          <%= link_to "Contact", contact_path, class: "hover:text-emerald-300 #{current_page?(contact_path) ? 'text-emerald-300' : 'text-slate-300'}" %>
         </div>
+        <%= link_to "Hire Me", contact_path, class: "order-2 rounded-full bg-emerald-400 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-950 transition hover:bg-emerald-300 sm:order-3 sm:px-6 sm:py-2.5" %>
       </nav>
     </header>
-    <main class="container mx-auto px-5 py-10">
+    <main class="mx-auto w-full max-w-7xl px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
       <% flash.each do |name, message| %>
         <p class="mb-4 rounded bg-emerald-900/40 border border-emerald-700 px-4 py-2"><%= message %></p>
       <% end %>

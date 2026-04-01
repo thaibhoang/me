@@ -47,8 +47,8 @@ Cap nhat lan cuoi: 2026-04-01
 - [ ] Nhap noi dung that thay cho seed demo (profile, projects, posts, social, CV link).
 
 ### B. Hoan thien UI theo design
-- [ ] Doi chieu va polish giao dien theo `design/mobile/*` (mobile-first).
-- [ ] Bo sung responsive adjustments theo `design/pc/*`.
+- [x] Doi chieu va polish giao dien theo `design/mobile/*` (mobile-first).
+- [x] Bo sung responsive adjustments theo `design/pc/*`.
 - [x] Chuan hoa component style dung lai (button, card, section title, spacing) bang `view_component`.
 
 ### C. SEO + Analytics phase tiep theo

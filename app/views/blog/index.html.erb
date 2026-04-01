@@ -1,22 +1,37 @@
-<%= render Ui::SectionTitleComponent.new(title: "Blog", subtitle: "Filter theo category va tech badge.", level: 1, classes: "text-3xl font-bold") %>
+<%= render Ui::SectionTitleComponent.new(title: "Blog", subtitle: "Filter theo category va tech badge.", level: 1, classes: "text-4xl font-bold sm:text-5xl") %>
 
-<section class="mt-6 flex flex-wrap gap-2">
-  <% @categories.each do |category| %>
-    <%= render Ui::ButtonComponent.new(label: category.name, href: blog_index_path(category: category.slug), variant: :chip) %>
-  <% end %>
-  <% @tags.each do |tag| %>
-    <%= render Ui::ButtonComponent.new(label: "##{tag.slug}", href: blog_index_path(tag: tag.slug), variant: :chip_active) %>
-  <% end %>
-</section>
-
-<%= render Ui::SectionBlockComponent.new(classes: "mt-8 space-y-4") do %>
-  <% @posts.each do |post| %>
-    <%= render Ui::CardComponent.new do |card| %>
-      <% card.with_title do %>
-        <%= link_to post.title, blog_post_path(post.slug), class: "text-xl hover:text-emerald-300" %>
+<section class="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-12">
+  <div class="space-y-4 lg:col-span-8">
+    <% @posts.each do |post| %>
+      <%= render Ui::CardComponent.new(classes: "md:flex md:items-start md:justify-between md:gap-8") do |card| %>
+        <% card.with_title do %>
+          <%= link_to post.title, blog_post_path(post.slug), class: "text-xl leading-tight hover:text-emerald-300 sm:text-2xl" %>
+        <% end %>
+        <% card.with_meta { post.published_at&.to_date || post.created_at.to_date } %>
+        <% card.with_body { post.excerpt } %>
       <% end %>
-      <% card.with_meta { post.published_at&.to_date || post.created_at.to_date } %>
-      <% card.with_body { post.excerpt } %>
     <% end %>
-  <% end %>
-<% end %>
+  </div>
+  <aside class="space-y-6 lg:col-span-4 lg:sticky lg:top-32 lg:self-start">
+    <%= render Ui::CardComponent.new do |card| %>
+      <% card.with_title { "Categories" } %>
+      <% card.with_body do %>
+        <div class="flex flex-wrap gap-2">
+          <% @categories.each do |category| %>
+            <%= render Ui::ButtonComponent.new(label: category.name, href: blog_index_path(category: category.slug), variant: :chip) %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <%= render Ui::CardComponent.new do |card| %>
+      <% card.with_title { "Tags" } %>
+      <% card.with_body do %>
+        <div class="flex flex-wrap gap-2">
+          <% @tags.each do |tag| %>
+            <%= render Ui::ButtonComponent.new(label: "##{tag.slug}", href: blog_index_path(tag: tag.slug), variant: :chip_active) %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </aside>
+</section>

@@ -1,39 +1,53 @@
-<%= render Ui::SectionBlockComponent.new(classes: "space-y-6") do %>
-  <p class="text-xs uppercase tracking-widest text-emerald-400">System Ready</p>
-  <h1 class="text-4xl font-bold">Architecting Scalable Digital Infrastructure.</h1>
-  <p class="max-w-2xl text-slate-300">
-    Toi xay dung nen tang backend hieu nang cao va chia se cac bai hoc thuc chien qua blog.
-  </p>
-  <div class="flex gap-3">
-    <%= render Ui::ButtonComponent.new(label: "View Projects", href: projects_index_path, variant: :primary) %>
-    <%= render Ui::ButtonComponent.new(label: "Read Blog", href: blog_index_path, variant: :secondary) %>
-  </div>
-<% end %>
+<%= render Ui::SectionBlockComponent.new(classes: "space-y-8 lg:space-y-10") do %>
+  <section class="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+    <div class="lg:col-span-7 space-y-6">
+      <p class="inline-flex w-fit rounded-full border border-slate-800 bg-slate-900/70 px-3 py-1 text-xs uppercase tracking-widest text-emerald-400">System Ready</p>
+      <h1 class="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">Architecting Scalable Digital Infrastructure.</h1>
+      <p class="max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base lg:text-lg">
+        Toi xay dung nen tang backend hieu nang cao va chia se cac bai hoc thuc chien qua blog.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <%= render Ui::ButtonComponent.new(label: "View Projects", href: projects_index_path, variant: :primary) %>
+        <%= render Ui::ButtonComponent.new(label: "Read Blog", href: blog_index_path, variant: :secondary) %>
+      </div>
+    </div>
+    <div class="hidden lg:col-span-5 lg:block">
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
+        <p class="text-xs uppercase tracking-widest text-emerald-300">Production Focus</p>
+        <ul class="mt-4 space-y-3 text-sm text-slate-300">
+          <li>Distributed systems with predictable latency</li>
+          <li>Cloud-native architecture and pragmatic scaling</li>
+          <li>Engineering playbooks from real project delivery</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-<%= render Ui::SectionBlockComponent.new(classes: "mt-14") do %>
-  <%= render Ui::SectionTitleComponent.new(title: "Featured Projects") %>
-  <div class="grid gap-4 md:grid-cols-3">
-    <% @featured_projects.each do |project| %>
-      <%= render Ui::CardComponent.new do |card| %>
-        <% card.with_title do %>
-          <%= link_to project.title, project_path(project.slug), class: "hover:text-emerald-300" %>
+  <%= render Ui::SectionBlockComponent.new(classes: "mt-8 lg:mt-14") do %>
+    <%= render Ui::SectionTitleComponent.new(title: "Featured Projects", subtitle: "Nhung case study noi bat va ket qua dat duoc.") %>
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-12">
+      <% @featured_projects.each_with_index do |project, index| %>
+        <%= render Ui::CardComponent.new(classes: (index.zero? ? "lg:col-span-7" : "lg:col-span-5")) do |card| %>
+          <% card.with_title do %>
+            <%= link_to project.title, project_path(project.slug), class: "hover:text-emerald-300" %>
+          <% end %>
+          <% card.with_body { project.summary } %>
         <% end %>
-        <% card.with_body { project.summary } %>
       <% end %>
-    <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
 
-<%= render Ui::SectionBlockComponent.new(classes: "mt-14") do %>
-  <%= render Ui::SectionTitleComponent.new(title: "Latest Posts") %>
-  <div class="space-y-3">
-    <% @latest_posts.each do |post| %>
-      <%= render Ui::CardComponent.new do |card| %>
-        <% card.with_title do %>
-          <%= link_to post.title, blog_post_path(post.slug), class: "hover:text-emerald-300" %>
+  <%= render Ui::SectionBlockComponent.new(classes: "mt-8 lg:mt-14") do %>
+    <%= render Ui::SectionTitleComponent.new(title: "Latest Posts", subtitle: "Bai viet moi nhat ve architecture, backend va growth.") %>
+    <div class="space-y-3">
+      <% @latest_posts.each do |post| %>
+        <%= render Ui::CardComponent.new(classes: "md:flex md:items-center md:justify-between md:gap-6") do |card| %>
+          <% card.with_title do %>
+            <%= link_to post.title, blog_post_path(post.slug), class: "hover:text-emerald-300" %>
+          <% end %>
+          <% card.with_body { post.excerpt } %>
         <% end %>
-        <% card.with_body { post.excerpt } %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 <% end %>

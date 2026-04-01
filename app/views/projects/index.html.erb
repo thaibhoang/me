@@ -1,10 +1,17 @@
-<%= render Ui::SectionTitleComponent.new(title: "Portfolio", subtitle: "Case study va ket qua du an.", level: 1, classes: "text-3xl font-bold") %>
+<%= render Ui::SectionTitleComponent.new(title: "Portfolio", subtitle: "Case study va ket qua du an.", level: 1, classes: "text-4xl font-bold sm:text-5xl") %>
 
-<section class="mt-8 grid gap-4 md:grid-cols-2">
-  <% @projects.each do |project| %>
-    <%= render Ui::CardComponent.new(classes: "p-5") do |card| %>
+<section class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-12 lg:gap-6">
+  <% @projects.each_with_index do |project, index| %>
+    <% grid_classes = if index.zero?
+      "md:col-span-2 lg:col-span-8"
+    elsif index.odd?
+      "lg:col-span-4"
+    else
+      "lg:col-span-8"
+    end %>
+    <%= render Ui::CardComponent.new(classes: grid_classes) do |card| %>
       <% card.with_title do %>
-        <%= link_to project.title, project_path(project.slug), class: "text-xl hover:text-emerald-300" %>
+        <%= link_to project.title, project_path(project.slug), class: "text-xl hover:text-emerald-300 sm:text-2xl" %>
       <% end %>
       <% card.with_body { project.summary } %>
     <% end %>

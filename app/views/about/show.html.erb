@@ -1,24 +1,31 @@
-<%= render Ui::SectionBlockComponent.new do %>
-  <%= render Ui::SectionTitleComponent.new(title: "About", level: 1, classes: "text-3xl font-bold") %>
-  <% if @profile.present? %>
-    <p class="text-xl"><%= @profile.full_name %> - <%= @profile.headline %></p>
-    <p class="text-slate-300"><%= @profile.bio %></p>
-    <% if @profile.cv_url.present? %>
-      <%= render Ui::ButtonComponent.new(label: "Download CV", href: @profile.cv_url, variant: :primary, classes: "inline-block") %>
-    <% end %>
-  <% else %>
-    <p class="text-slate-300">Chua co du lieu profile.</p>
-  <% end %>
-<% end %>
-
-<%= render Ui::SectionBlockComponent.new(classes: "mt-10") do %>
-  <%= render Ui::SectionTitleComponent.new(title: "Experience") %>
-  <div class="space-y-3">
-    <% @profile&.experiences&.each do |experience| %>
-      <%= render Ui::CardComponent.new do |card| %>
-        <% card.with_title { "#{experience.role} - #{experience.company}" } %>
-        <% card.with_meta { [experience.start_on, experience.end_on || "Now"].join(" - ") } %>
+<section class="grid gap-10 lg:grid-cols-12 lg:gap-14">
+  <aside class="space-y-6 lg:col-span-4">
+    <%= render Ui::SectionTitleComponent.new(title: "About", level: 1, classes: "text-4xl font-bold sm:text-5xl") %>
+    <% if @profile.present? %>
+      <p class="text-xl tracking-tight sm:text-2xl"><%= @profile.full_name %> - <%= @profile.headline %></p>
+      <% if @profile.cv_url.present? %>
+        <%= render Ui::ButtonComponent.new(label: "Download CV", href: @profile.cv_url, variant: :primary, classes: "inline-block") %>
       <% end %>
     <% end %>
+  </aside>
+
+  <div class="space-y-10 lg:col-span-8">
+    <% if @profile.present? %>
+      <p class="text-sm leading-relaxed text-slate-300 sm:text-base lg:text-lg"><%= @profile.bio %></p>
+    <% else %>
+      <p class="text-slate-300">Chua co du lieu profile.</p>
+    <% end %>
+
+    <%= render Ui::SectionBlockComponent.new do %>
+      <%= render Ui::SectionTitleComponent.new(title: "Experience", subtitle: "Cac vai tro va impact noi bat theo tung giai doan.") %>
+      <div class="space-y-3">
+        <% @profile&.experiences&.each do |experience| %>
+          <%= render Ui::CardComponent.new do |card| %>
+            <% card.with_title { "#{experience.role} - #{experience.company}" } %>
+            <% card.with_meta { [experience.start_on, experience.end_on || "Now"].join(" - ") } %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</section>

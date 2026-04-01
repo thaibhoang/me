@@ -13,7 +13,7 @@ module Ui
     attr_reader :tag
 
     def wrapper_classes
-      [ "rounded border border-slate-800 p-4", @classes ].compact.join(" ")
+      [ "rounded-xl border border-slate-800/80 bg-slate-900/40 p-5 sm:p-6", @classes ].compact.join(" ")
     end
   end
 end

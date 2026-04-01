@@ -45,3 +45,17 @@ Su dung file nay de luu cac quyet dinh ky thuat quan trong.
 - Alternatives considered: Tu xay admin UI bang SSR/Hotwire; HTTP Basic Auth thu cong cho toan bo `/admin`.
 - Consequences: Giam thoi gian trien khai MVP, doi lai phu thuoc vao importmap workaround cho rails_admin tren Rails 8.
 - Owner: Project team
+
+### [2026-04-01] Mobile-first polish uses shared ViewComponent style contract
+- Context: Da co `view_component` cho button/card/section, can polish UI theo `design/mobile/*` tren toan bo public pages ma khong nhan doi class tai tung view.
+- Decision: Chuan hoa style contract trong `Ui::ButtonComponent`, `Ui::CardComponent`, `Ui::SectionTitleComponent`, `Ui::SectionBlockComponent` va cap nhat public layout shell mobile-first.
+- Alternatives considered: Them class truc tiep trong tung view cho moi man hinh; tach rieng mobile/desktop views.
+- Consequences: Giao dien dong bo va de maintain hon; doi lai test component can update khi doi class naming.
+- Owner: Project team
+
+### [2026-04-01] Desktop responsive reuses mobile-first component contract
+- Context: Checklist MVP muc UI can bo sung responsive desktop theo `design/pc/*`, trong khi mobile polish da hoan thanh.
+- Decision: Mo rong layout shell + responsive utility classes tren `Ui::*Component` va dieu chinh bo cuc tung view bang `md/lg/xl`; khong tach view rieng cho desktop.
+- Alternatives considered: Viet class desktop truc tiep tren moi block view; tao cap view rieng cho mobile va desktop.
+- Consequences: Giam duplicate style va giu duoc kha nang maintain; doi lai can canh bao regression qua component tests va QA breakpoint.
+- Owner: Project team
