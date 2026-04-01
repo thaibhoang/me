@@ -52,16 +52,16 @@ Cap nhat lan cuoi: 2026-04-01
 - [x] Chuan hoa component style dung lai (button, card, section title, spacing) bang `view_component`.
 
 ### C. SEO + Analytics phase tiep theo
-- [ ] Tich hop analytics that (GA4 hoac Plausible).
-- [ ] Mapping day du event convention:
-  - [ ] `page_view`
-  - [ ] `cta_click_hire_me`
-  - [ ] `cta_click_view_project`
-  - [ ] `contact_submit`
-  - [ ] `resume_download`
-  - [ ] `project_outbound_click`
-  - [ ] `post_tag_click`
-- [ ] Verify metadata bang devtools va social debugger.
+- [x] Tich hop analytics that (GA4 hoac Plausible).
+- [x] Mapping day du event convention:
+  - [x] `page_view`
+  - [x] `cta_click_hire_me`
+  - [x] `cta_click_view_project`
+  - [x] `contact_submit`
+  - [x] `resume_download`
+  - [x] `project_outbound_click`
+  - [x] `post_tag_click`
+- [x] Verify metadata bang devtools va social debugger.
 
 ### D. Chot release MVP
 - [ ] QA thu cong tren cac flow quan trong:

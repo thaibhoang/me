@@ -4,7 +4,7 @@
     <% if @profile.present? %>
       <p class="text-xl tracking-tight sm:text-2xl"><%= @profile.full_name %> - <%= @profile.headline %></p>
       <% if @profile.cv_url.present? %>
-        <%= render Ui::ButtonComponent.new(label: "Download CV", href: @profile.cv_url, variant: :primary, classes: "inline-block") %>
+        <%= render Ui::ButtonComponent.new(label: "Download CV", href: @profile.cv_url, variant: :primary, classes: "inline-block", html_options: { data: { analytics_event: "resume_download", analytics_source: "about_cv" } }) %>
       <% end %>
     <% end %>
   </aside>

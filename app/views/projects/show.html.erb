@@ -28,7 +28,7 @@
         <% card.with_body do %>
           <div class="flex flex-wrap gap-2">
             <% @project.project_links.order(:position).each do |link| %>
-              <%= render Ui::ButtonComponent.new(label: link.label, href: link.url, variant: :chip_active) %>
+              <%= render Ui::ButtonComponent.new(label: link.label, href: link.url, variant: :chip_active, html_options: { data: { analytics_event: "project_outbound_click", analytics_source: "project_links", analytics_label: link.label } }) %>
             <% end %>
           </div>
         <% end %>

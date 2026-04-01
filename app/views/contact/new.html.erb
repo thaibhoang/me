@@ -2,7 +2,7 @@
   <%= render Ui::SectionBlockComponent.new(classes: "lg:col-span-7") do %>
     <%= render Ui::SectionTitleComponent.new(title: "Contact", subtitle: "Gui thong tin de trao doi co hoi hop tac.", level: 1, classes: "text-4xl font-bold sm:text-5xl") %>
 
-    <%= form_with model: @contact_message, url: contact_submit_path, class: "mt-6 space-y-4" do |f| %>
+    <%= form_with model: @contact_message, url: contact_submit_path, class: "mt-6 space-y-4", data: { analytics_event: "contact_submit", analytics_source: "contact_form" } do |f| %>
       <div class="grid gap-4 md:grid-cols-2">
         <div>
           <%= f.label :name, class: "text-sm text-slate-300" %>

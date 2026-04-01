@@ -7,7 +7,7 @@
         Toi xay dung nen tang backend hieu nang cao va chia se cac bai hoc thuc chien qua blog.
       </p>
       <div class="flex flex-wrap gap-3">
-        <%= render Ui::ButtonComponent.new(label: "View Projects", href: projects_index_path, variant: :primary) %>
+        <%= render Ui::ButtonComponent.new(label: "View Projects", href: projects_index_path, variant: :primary, html_options: { data: { analytics_event: "cta_click_view_project", analytics_source: "home_hero" } }) %>
         <%= render Ui::ButtonComponent.new(label: "Read Blog", href: blog_index_path, variant: :secondary) %>
       </div>
     </div>

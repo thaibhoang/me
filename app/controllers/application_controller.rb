@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
-  helper_method :current_page_meta
+  helper_method :current_page_meta, :ga_measurement_id, :ga_tracking_enabled?
 
   private
 
@@ -33,5 +33,13 @@ class ApplicationController < ActionController::Base
 
   def track_event(name, payload = {})
     Rails.logger.info("[analytics] #{name} #{payload.to_json}")
+  end
+
+  def ga_measurement_id
+    ENV.fetch("GA_MEASUREMENT_ID", "").strip
+  end
+
+  def ga_tracking_enabled?
+    ga_measurement_id.present?
   end
 end

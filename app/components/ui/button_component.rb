@@ -7,15 +7,16 @@ module Ui
       chip_active: "inline-flex items-center justify-center rounded-full border border-emerald-700 bg-emerald-900/20 px-3 py-1.5 text-xs text-emerald-300 sm:px-4 sm:py-2"
     }.freeze
 
-    def initialize(label:, href: nil, variant: :primary, type: :button, classes: nil)
+    def initialize(label:, href: nil, variant: :primary, type: :button, classes: nil, html_options: {})
       @label = label
       @href = href
       @variant = variant.to_sym
       @type = type
       @classes = classes
+      @html_options = html_options
     end
 
-    attr_reader :label, :href, :type
+    attr_reader :label, :href, :type, :html_options
 
     def link?
       href.present?

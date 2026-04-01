@@ -28,7 +28,7 @@
       <% card.with_body do %>
         <div class="flex flex-wrap gap-2">
           <% @tags.each do |tag| %>
-            <%= render Ui::ButtonComponent.new(label: "##{tag.slug}", href: blog_index_path(tag: tag.slug), variant: :chip_active) %>
+            <%= render Ui::ButtonComponent.new(label: "##{tag.slug}", href: blog_index_path(tag: tag.slug), variant: :chip_active, html_options: { data: { analytics_event: "post_tag_click", analytics_source: "blog_index", analytics_label: tag.slug } }) %>
           <% end %>
         </div>
       <% end %>

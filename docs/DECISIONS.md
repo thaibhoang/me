@@ -59,3 +59,10 @@ Su dung file nay de luu cac quyet dinh ky thuat quan trong.
 - Alternatives considered: Viet class desktop truc tiep tren moi block view; tao cap view rieng cho mobile va desktop.
 - Consequences: Giam duplicate style va giu duoc kha nang maintain; doi lai can canh bao regression qua component tests va QA breakpoint.
 - Owner: Project team
+
+### [2026-04-01] Client-side GA4 tracking via data attributes
+- Context: Phase SEO + Analytics can map day du event convention cho CTA/link/form, dong thoi ho tro Turbo navigation ma khong duplicate code JS theo tung view.
+- Decision: Tich hop GA4 qua `GA_MEASUREMENT_ID`, tao tracking layer `app/javascript/analytics.js`, va gan event qua `data-analytics-*` attributes tren view/component.
+- Alternatives considered: Goi `gtag` truc tiep tai tung view; tiep tuc chi log server-side.
+- Consequences: De mo rong event nhanh va dong bo naming convention; can QA data attributes khi thay doi UI components.
+- Owner: Project team
