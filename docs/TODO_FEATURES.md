@@ -63,14 +63,12 @@
 
 ---
 
-### 4. Contact page — Social Links hardcode
+### 4. Contact page — Social Links hardcode ✅
 
-**Ưu tiên: 🟡 Trung bình**
+**Hoàn thành** — Đã render `@social_links` động từ DB:
 
-Sidebar trong `app/views/contact/new.html.erb` đang hardcode "GitHub / LinkedIn / Twitter". Cần:
-
-- [ ] Render `@social_links` động từ `Profile#social_links` (đã có model, chưa load trong controller)
-- [ ] Thêm `@social_links = Profile.first&.social_links&.order(:position)` trong `ContactController`
+- [x] Render `@social_links` động từ `Profile#social_links` (đã có model, chưa load trong controller)
+- [x] Thêm `@social_links = Profile.first&.social_links&.order(:position)` trong `ContactController`
 
 ---
 
