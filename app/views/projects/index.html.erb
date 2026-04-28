@@ -1,19 +1,31 @@
 <%= render Ui::SectionTitleComponent.new(title: "Portfolio", subtitle: "Case study va ket qua du an.", level: 1, classes: "text-4xl font-bold sm:text-5xl") %>
 
-<section class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-12 lg:gap-6">
-  <% @projects.each_with_index do |project, index| %>
-    <% grid_classes = if index.zero?
-      "md:col-span-2 lg:col-span-8"
-    elsif index.odd?
-      "lg:col-span-4"
-    else
-      "lg:col-span-8"
-    end %>
-    <%= render Ui::CardComponent.new(classes: grid_classes) do |card| %>
+<%# Tag filter %>
+<% if @tags.any? %>
+  <div class="mt-6 flex flex-wrap gap-2">
+    <%= render Ui::ButtonComponent.new(label: "All", href: projects_index_path, variant: (params[:tag].blank? ? :chip_active : :chip)) %>
+    <% @tags.each do |tag| %>
+      <%= render Ui::ButtonComponent.new(label: tag.name, href: projects_index_path(tag: tag.slug), variant: (params[:tag] == tag.slug ? :chip_active : :chip), html_options: { data: { analytics_event: "post_tag_click", analytics_source: "projects_index", analytics_label: tag.slug } }) %>
+    <% end %>
+  </div>
+<% end %>
+
+<section class="mt-10 grid gap-4 md:grid-cols-2 lg:gap-6">
+  <% @projects.each do |project| %>
+    <%= render Ui::CardComponent.new do |card| %>
       <% card.with_title do %>
         <%= link_to project.title, project_path(project.slug), class: "text-xl hover:text-emerald-300 sm:text-2xl" %>
       <% end %>
       <% card.with_body { project.summary } %>
+      <% if project.tags.any? %>
+        <% card.with_footer do %>
+          <div class="flex flex-wrap gap-2">
+            <% project.tags.each do |tag| %>
+              <%= render Ui::ButtonComponent.new(label: tag.name, href: projects_index_path(tag: tag.slug), variant: :chip, html_options: { data: { analytics_event: "post_tag_click", analytics_source: "projects_index_card", analytics_label: tag.slug } }) %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 </section>

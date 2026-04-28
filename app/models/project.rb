@@ -3,6 +3,8 @@ class Project < ApplicationRecord
   has_many :project_visuals, dependent: :destroy
   has_many :project_metrics, dependent: :destroy
   has_many :project_achievements, dependent: :destroy
+  has_many :project_tags, dependent: :destroy
+  has_many :tags, through: :project_tags
 
   enum :status, { draft: 0, published: 1 }
 

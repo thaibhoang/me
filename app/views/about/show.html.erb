@@ -3,8 +3,22 @@
     <%= render Ui::SectionTitleComponent.new(title: "About", level: 1, classes: "text-4xl font-bold sm:text-5xl") %>
     <% if @profile.present? %>
       <p class="text-xl tracking-tight sm:text-2xl"><%= @profile.full_name %> - <%= @profile.headline %></p>
+      <% if @profile.availability_text.present? %>
+        <p class="block items-center gap-2 text-sm text-emerald-400">
+          <span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
+          <%= @profile.availability_text %>
+        </p>
+      <% end %>
       <% if @profile.cv_url.present? %>
         <%= render Ui::ButtonComponent.new(label: "Download CV", href: @profile.cv_url, variant: :primary, classes: "inline-block", html_options: { data: { analytics_event: "resume_download", analytics_source: "about_cv" } }) %>
+      <% end %>
+
+      <% if @profile.social_links.any? %>
+        <div class="flex flex-wrap gap-3 pt-2">
+          <% @profile.social_links.each do |link| %>
+            <%= render Ui::ButtonComponent.new(label: link.platform, href: link.url, variant: :chip_active, html_options: { target: "_blank", rel: "noopener noreferrer" }) %>
+          <% end %>
+        </div>
       <% end %>
     <% end %>
   </aside>
@@ -17,15 +31,36 @@
     <% end %>
 
     <%= render Ui::SectionBlockComponent.new do %>
-      <%= render Ui::SectionTitleComponent.new(title: "Experience", subtitle: "Cac vai tro va impact noi bat theo tung giai doan.") %>
+      <%= render Ui::SectionTitleComponent.new(title: "Experience", subtitle: "Role and Impact") %>
       <div class="space-y-3">
         <% @profile&.experiences&.each do |experience| %>
           <%= render Ui::CardComponent.new do |card| %>
-            <% card.with_title { "#{experience.role} - #{experience.company}" } %>
-            <% card.with_meta { [experience.start_on, experience.end_on || "Now"].join(" - ") } %>
+            <% card.with_title { "#{experience.role} — #{experience.company}" } %>
+            <% card.with_meta { [experience.start_on&.strftime("%b %Y"), experience.end_on&.strftime("%b %Y") || "Present"].join(" – ") } %>
+            <% if experience.description.present? %>
+              <% card.with_body { experience.description } %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
+    <% end %>
+
+    <% if @profile&.skills&.any? %>
+      <%= render Ui::SectionBlockComponent.new do %>
+        <%= render Ui::SectionTitleComponent.new(title: "Skills", subtitle: "Technologies and tools used in real projects.") %>
+        <div class="space-y-6">
+          <% @profile.skills.group_by(&:group_name).each do |group_name, skills| %>
+            <div>
+              <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-emerald-400"><%= group_name %></p>
+              <div class="flex flex-wrap gap-2">
+                <% skills.each do |skill| %>
+                  <%= render Ui::ButtonComponent.new(label: skill.name, href: blog_index_path(tag: skill.name.downcase.gsub(/[^a-z0-9]+/, "-")), variant: :chip) %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </section>

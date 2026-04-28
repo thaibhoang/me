@@ -1,38 +1,114 @@
-<article class="space-y-10">
+<article class="space-y-12">
+  <%# ── Header ── %>
   <header class="space-y-4">
     <h1 class="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl"><%= @project.title %></h1>
     <p class="max-w-4xl text-sm leading-relaxed text-slate-300 sm:text-base lg:text-lg"><%= @project.summary %></p>
+
+    <%# Tech Stack badges %>
+    <% if @project.tags.any? %>
+      <div class="flex flex-wrap gap-2 pt-1">
+        <% @project.tags.each do |tag| %>
+          <%= render Ui::ButtonComponent.new(label: tag.name, href: projects_index_path(tag: tag.slug), variant: :chip_active, html_options: { data: { analytics_event: "post_tag_click", analytics_source: "project_detail", analytics_label: tag.slug } }) %>
+        <% end %>
+      </div>
+    <% end %>
   </header>
 
-  <section class="grid gap-8 lg:grid-cols-12 lg:items-start">
-    <div class="space-y-6 lg:col-span-8">
-      <%= render Ui::SectionTitleComponent.new(title: "Technical Visuals") %>
-      <section class="grid gap-4 md:grid-cols-2">
-        <% @project.project_visuals.order(:position).each do |visual| %>
-          <%= render Ui::CardComponent.new(tag: :figure, classes: "p-3") do |card| %>
+  <%# ── Challenge & Solution ── %>
+  <% if @project.challenge.present? || @project.solution.present? %>
+    <%= render Ui::SectionBlockComponent.new do %>
+      <div class="grid gap-6 md:grid-cols-2">
+        <% if @project.challenge.present? %>
+          <%= render Ui::CardComponent.new do |card| %>
+            <% card.with_title { "Challenge" } %>
+            <% card.with_body { @project.challenge } %>
+          <% end %>
+        <% end %>
+        <% if @project.solution.present? %>
+          <%= render Ui::CardComponent.new do |card| %>
+            <% card.with_title { "Solution" } %>
+            <% card.with_body { @project.solution } %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%# ── Metrics ── %>
+  <% if @project.project_metrics.any? %>
+    <%= render Ui::SectionBlockComponent.new do %>
+      <%= render Ui::SectionTitleComponent.new(title: "Impact Metrics", subtitle: "Comparison before and after implementation.") %>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <% @project.project_metrics.order(:position).each do |metric| %>
+          <%= render Ui::CardComponent.new(classes: "text-center") do |card| %>
+            <% card.with_title { metric.name } %>
             <% card.with_body do %>
-              <img src="<%= visual.image_url %>" alt="<%= visual.title.presence || @project.title %>" class="w-full rounded">
-            <% end %>
-            <% if visual.caption.present? %>
-              <% card.with_footer do %>
-                <figcaption class="text-sm text-slate-400"><%= visual.caption %></figcaption>
-              <% end %>
+              <div class="mt-2 flex items-center justify-center gap-4">
+                <% if metric.legacy_value.present? %>
+                  <span class="text-sm text-slate-500 line-through"><%= metric.legacy_value %></span>
+                  <span class="text-slate-600">→</span>
+                <% end %>
+                <span class="text-lg font-bold text-emerald-400"><%= metric.improved_value %></span>
+              </div>
             <% end %>
           <% end %>
         <% end %>
-      </section>
-    </div>
-    <aside class="lg:col-span-4 lg:sticky lg:top-32">
-      <%= render Ui::CardComponent.new do |card| %>
-        <% card.with_title { "Links" } %>
-        <% card.with_body do %>
-          <div class="flex flex-wrap gap-2">
-            <% @project.project_links.order(:position).each do |link| %>
-              <%= render Ui::ButtonComponent.new(label: link.label, href: link.url, variant: :chip_active, html_options: { data: { analytics_event: "project_outbound_click", analytics_source: "project_links", analytics_label: link.label } }) %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%# ── Achievements ── %>
+  <% if @project.project_achievements.any? %>
+    <%= render Ui::SectionBlockComponent.new do %>
+      <%= render Ui::SectionTitleComponent.new(title: "Key Achievements") %>
+      <div class="space-y-3">
+        <% @project.project_achievements.order(:position).each do |achievement| %>
+          <%= render Ui::CardComponent.new(classes: "flex gap-4") do |card| %>
+            <% card.with_title { achievement.title } %>
+            <% if achievement.description.present? %>
+              <% card.with_body { achievement.description } %>
             <% end %>
-          </div>
+          <% end %>
         <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%# ── Visuals + Links ── %>
+  <section class="grid gap-8 lg:grid-cols-12 lg:items-start">
+    <div class="space-y-6 lg:col-span-8">
+      <% if @project.project_visuals.any? %>
+        <%= render Ui::SectionTitleComponent.new(title: "Technical Visuals") %>
+        <section class="grid gap-4 md:grid-cols-2">
+          <% @project.project_visuals.order(:position).each do |visual| %>
+            <%= render Ui::CardComponent.new(tag: :figure, classes: "p-3") do |card| %>
+              <% card.with_body do %>
+                <img src="<%= visual.image_url %>" alt="<%= visual.title.presence || @project.title %>" class="w-full rounded" loading="lazy">
+              <% end %>
+              <% if visual.caption.present? %>
+                <% card.with_footer do %>
+                  <figcaption class="text-sm text-slate-400"><%= visual.caption %></figcaption>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </section>
       <% end %>
-    </aside>
+    </div>
+
+    <% if @project.project_links.any? %>
+      <aside class="lg:col-span-4 lg:sticky lg:top-32">
+        <%= render Ui::CardComponent.new do |card| %>
+          <% card.with_title { "Links" } %>
+          <% card.with_body do %>
+            <div class="flex flex-wrap gap-2">
+              <% @project.project_links.order(:position).each do |link| %>
+                <%= render Ui::ButtonComponent.new(label: link.label, href: link.url, variant: :chip_active, html_options: { target: "_blank", rel: "noopener noreferrer", data: { analytics_event: "project_outbound_click", analytics_source: "project_links", analytics_label: link.label } }) %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </aside>
+    <% end %>
   </section>
 </article>

@@ -3,7 +3,7 @@
 <section class="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-12">
   <div class="space-y-4 lg:col-span-8">
     <% @posts.each do |post| %>
-      <%= render Ui::CardComponent.new(classes: "md:flex md:items-start md:justify-between md:gap-8") do |card| %>
+      <%= render Ui::CardComponent.new(classes: "md:flex md:items-start md:gap-8", title_classes: "line-clamp-2", meta_classes: "md:order-last", body_classes: "line-clamp-3") do |card| %>
         <% card.with_title do %>
           <%= link_to post.title, blog_post_path(post.slug), class: "text-xl leading-tight hover:text-emerald-300 sm:text-2xl" %>
         <% end %>

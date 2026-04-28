@@ -5,10 +5,15 @@ module Ui
     renders_one :body
     renders_one :footer
 
-    def initialize(classes: nil, tag: :article)
+    def initialize(classes: nil, tag: :article, title_classes: nil, meta_classes: nil, body_classes: nil)
       @classes = classes
       @tag = tag
+      @title_classes = title_classes
+      @meta_classes = meta_classes
+      @body_classes = body_classes
     end
+
+    attr_reader :title_classes, :meta_classes, :body_classes
 
     attr_reader :tag
 

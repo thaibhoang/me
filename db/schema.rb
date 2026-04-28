@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_01_092442) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_28_050935) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -144,6 +144,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_01_092442) do
     t.index ["project_id"], name: "index_project_metrics_on_project_id"
   end
 
+  create_table "project_tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "project_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "tag_id"], name: "index_project_tags_on_project_id_and_tag_id", unique: true
+    t.index ["project_id"], name: "index_project_tags_on_project_id"
+    t.index ["tag_id"], name: "index_project_tags_on_tag_id"
+  end
+
   create_table "project_visuals", force: :cascade do |t|
     t.text "caption"
     t.datetime "created_at", null: false
@@ -213,6 +223,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_01_092442) do
   add_foreign_key "project_achievements", "projects", on_delete: :cascade
   add_foreign_key "project_links", "projects", on_delete: :cascade
   add_foreign_key "project_metrics", "projects", on_delete: :cascade
+  add_foreign_key "project_tags", "projects", on_delete: :cascade
+  add_foreign_key "project_tags", "tags", on_delete: :cascade
   add_foreign_key "project_visuals", "projects", on_delete: :cascade
   add_foreign_key "skills", "profiles", on_delete: :cascade
   add_foreign_key "social_links", "profiles", on_delete: :cascade
