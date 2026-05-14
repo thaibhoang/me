@@ -78,6 +78,8 @@ tag_ai          = Tag.find_or_create_by!(slug: "ai")            { |t| t.name = "
 tag_hotwire     = Tag.find_or_create_by!(slug: "hotwire")       { |t| t.name = "Hotwire" }
 tag_architecture = Tag.find_or_create_by!(slug: "architecture") { |t| t.name = "Architecture" }
 tag_docker      = Tag.find_or_create_by!(slug: "docker")        { |t| t.name = "Docker" }
+tag_go          = Tag.find_or_create_by!(slug: "go")            { |t| t.name = "Go" }
+tag_postgis     = Tag.find_or_create_by!(slug: "postgis")       { |t| t.name = "PostGIS" }
 
 # ==============================================================================
 # BLOG POSTS
@@ -88,37 +90,23 @@ post1.update!(
   excerpt: "Real-world lessons from engineering a low-latency messaging engine that handles thousands of concurrent " \
            "users — using ActionCable, Redis pub/sub, and careful connection management.",
   content: <<~CONTENT,
-    When we set out to build Aituber's real-time interaction platform, the primary challenge was clear: thousands of users
-    simultaneously chatting, sending reactions, and watching a live stream — all requiring sub-100ms message delivery.
+    When we set out to build Aituber's real-time interaction platform, the primary challenge was clear: thousands of users simultaneously chatting, sending reactions, and watching a live stream — all requiring sub-100ms message delivery.
 
-    ## Why ActionCable + Redis?
+    Why ActionCable and Redis
 
-    Rails' ActionCable provides an abstraction over WebSockets that integrates naturally into the Rails ecosystem.
-    Backed by Redis as the pub/sub adapter, it scales horizontally across multiple Puma processes and dyno instances.
+    Rails' ActionCable provides an abstraction over WebSockets that integrates naturally into the Rails ecosystem. Backed by Redis as the pub/sub adapter, it scales horizontally across multiple Puma processes and dyno instances.
 
-    ## Key Architecture Decisions
+    Key Architecture Decisions
 
-    **1. Channel Segmentation**
-    Instead of one monolithic channel, we split communication into purpose-specific channels:
-    - `ChatChannel` — user messages and reactions
-    - `StreamStatusChannel` — live/offline state broadcasts
-    - `KaraokeChannel` — synchronized lyrics events
+    The first decision was channel segmentation. Instead of one monolithic channel, we split communication into purpose-specific channels: ChatChannel for user messages and reactions, StreamStatusChannel for live/offline state broadcasts, and KaraokeChannel for synchronized lyrics events. This reduced noise and allowed independent scaling of each concern.
 
-    This reduced noise and allowed independent scaling of each concern.
+    The second decision was Redis pipeline batching. High-frequency events such as reactions and viewer counts were batched using Redis pipelines before broadcasting, cutting round-trip overhead by roughly 60% during peak load.
 
-    **2. Redis Pipeline Batching**
-    High-frequency events (reactions, viewer counts) were batched using Redis pipelines before broadcasting,
-    cutting round-trip overhead by ~60% during peak load.
+    The third decision was connection lifecycle management. We implemented explicit subscribed and unsubscribed hooks to clean up Redis keys and prevent memory leaks in long-running sessions.
 
-    **3. Connection Lifecycle Management**
-    We implemented explicit `subscribed` / `unsubscribed` hooks to clean up Redis keys and prevent memory leaks
-    in long-running sessions.
+    Results
 
-    ## Results
-
-    - Sustained 2,000+ concurrent WebSocket connections per instance
-    - Average message delivery latency: < 80ms under normal load
-    - Zero dropped messages during YouTube Live integration tests
+    Sustained 2,000+ concurrent WebSocket connections per instance. Average message delivery latency under 80ms under normal load. Zero dropped messages during YouTube Live integration tests.
   CONTENT
   status: :published,
   published_at: 3.days.ago,
@@ -135,44 +123,27 @@ post2.update!(
   excerpt: "How we architected the core matching logic for a social carpool platform — covering transactional integrity, " \
            "spatial queries, and real-time confirmations with ActionCable.",
   content: <<~CONTENT,
-    AINORY was a social taxi carpool matching platform where drivers post trip offers and riders join them in real time.
-    The matching engine was the heart of the system — and getting it wrong meant lost trips and angry users.
+    AINORY was a social taxi carpool matching platform where drivers post trip offers and riders join them in real time. The matching engine was the heart of the system — and getting it wrong meant lost trips and angry users.
 
-    ## The Problem Space
+    The Problem Space
 
-    A match event involves multiple concurrent actors:
-    - A driver broadcasting an available trip
-    - Multiple riders requesting to join simultaneously
-    - The system confirming one rider and notifying others
+    A match event involves multiple concurrent actors: a driver broadcasting an available trip, multiple riders requesting to join simultaneously, and the system confirming one rider and notifying others. This is a classic optimistic concurrency problem.
 
-    This is a classic optimistic concurrency problem.
+    Solution: Serialized Matching with Advisory Locks
 
-    ## Solution: Serialized Matching with Advisory Locks
+    We used PostgreSQL advisory locks to serialize matching per trip, ensuring only one join request is processed at a time without blocking unrelated trips. The lock is scoped to the trip ID, so parallel requests for different trips proceed independently.
 
-    We used PostgreSQL advisory locks to serialize matching per trip, ensuring only one join request
-    is processed at a time without blocking unrelated trips.
+    Real-Time Confirmations
 
-    ```ruby
-    Trip.with_advisory_lock(trip_id) do
-      trip.join_requests.pending.first.accept!
-    end
-    ```
+    Once a match is confirmed, ActionCable broadcasts the result to all subscribers of that trip's channel. Riders see instant "Seat Taken" or "You're matched!" notifications without polling.
 
-    ## Real-Time Confirmations
+    Spatial Queries
 
-    Once a match is confirmed, ActionCable broadcasts the result to all subscribers of that trip's channel.
-    Riders see instant "Seat Taken" or "You're matched!" notifications without polling.
+    We used PostGIS extensions on PostgreSQL to query nearby trip offers within a configurable radius, avoiding full-table scans as the dataset grew.
 
-    ## Spatial Queries
+    Outcome
 
-    We used PostGIS extensions on PostgreSQL to query nearby trip offers within a configurable radius,
-    avoiding full-table scans as the dataset grew.
-
-    ## Outcome
-
-    - Matching conflicts reduced to zero after advisory lock implementation
-    - Average match confirmation time: < 200ms end-to-end
-    - System handled peak-hour load without degradation
+    Matching conflicts reduced to zero after advisory lock implementation. Average match confirmation time under 200ms end-to-end. System handled peak-hour load without degradation.
   CONTENT
   status: :published,
   published_at: 10.days.ago,
@@ -188,46 +159,23 @@ post3.update!(
   excerpt: "A practical walkthrough of wiring a Dify RAG workflow into a Ruby on Rails backend — " \
            "covering API design, prompt context injection, and streaming responses to the frontend.",
   content: <<~CONTENT,
-    For Aiorder's personalized ordering assistant, we needed an AI layer that understood each user's
-    order history and the current menu in real time. Dify's workflow engine was the right tool — but
-    integrating it cleanly into Rails took some deliberate design.
+    For Aiorder's personalized ordering assistant, we needed an AI layer that understood each user's order history and the current menu in real time. Dify's workflow engine was the right tool — but integrating it cleanly into Rails took some deliberate design.
 
-    ## Dify as the AI Layer
+    Dify as the AI Layer
 
-    Dify provides a visual RAG workflow builder where you can define:
-    - Knowledge bases (menu items, user preferences)
-    - Retrieval strategy (semantic search, keyword, hybrid)
-    - LLM prompt templates with dynamic variable injection
+    Dify provides a visual RAG workflow builder where you can define knowledge bases for menu items and user preferences, a retrieval strategy covering semantic search, keyword, and hybrid modes, and LLM prompt templates with dynamic variable injection. Our Rails backend's job was to be the orchestration layer between the user, our database, and Dify.
 
-    Our Rails backend's job was to be the orchestration layer between the user, our database, and Dify.
+    Context Injection Pattern
 
-    ## Context Injection Pattern
+    Each API call to Dify included a context payload built from the user's last 10 orders, the current table's active menu, and the time of day along with any active promotions. Keeping this payload lean was important — Dify's token window fills fast with large history arrays.
 
-    Each API call to Dify included a context payload built from:
-    - Last 10 orders for the user
-    - Current table's active menu
-    - Time-of-day and any active promotions
+    Streaming Responses via SSE
 
-    ```ruby
-    def build_dify_context(user, table)
-      {
-        user_order_history: user.recent_orders.map(&:to_dify_summary),
-        menu_items: table.active_menu.items.map(&:to_dify_summary),
-        current_time: Time.current.strftime("%H:%M")
-      }
-    end
-    ```
+    To give users a ChatGPT-like experience, we streamed Dify's response chunks back to the React frontend using Server-Sent Events, keeping the connection open until the full response was delivered.
 
-    ## Streaming Responses via SSE
+    Lessons Learned
 
-    To give users a ChatGPT-like experience, we streamed Dify's response chunks back to the React frontend
-    using Server-Sent Events (SSE), keeping the connection open until the full response was delivered.
-
-    ## Lessons Learned
-
-    - Keep context payloads small — Dify's token window fills fast with large history arrays
-    - Cache menu data aggressively; it changes infrequently but is queried on every request
-    - Monitor Dify workflow latency independently from Rails response time
+    Keep context payloads small. Cache menu data aggressively since it changes infrequently but is queried on every request. Monitor Dify workflow latency independently from Rails response time to isolate bottlenecks.
   CONTENT
   status: :published,
   published_at: 20.days.ago,
@@ -236,6 +184,67 @@ post3.update!(
 PostTag.find_or_create_by!(post: post3, tag: tag_rails)
 PostTag.find_or_create_by!(post: post3, tag: tag_ai)
 PostTag.find_or_create_by!(post: post3, tag: tag_react)
+
+post4 = Post.find_or_initialize_by(slug: "building-an-llm-extraction-pipeline-for-vietnamese-sports-listings")
+post4.update!(
+  title: "Building an LLM Extraction Pipeline for Vietnamese Sports Listings",
+  excerpt: "How I built a Go + LLM pipeline that reads raw Vietnamese Facebook posts about " \
+           "badminton and pickleball meetups, extracts structured data, geocodes addresses in " \
+           "Ho Chi Minh City, and feeds it into a Rails app — end to end in under 2 seconds per listing.",
+  content: <<~CONTENT,
+    SportMatch is a side project I built solo over one month: a map-based platform where badminton and pickleball players in Ho Chi Minh City can find teammates and join games. The manual posting flow was straightforward Rails. The hard part was the other data source — scraping raw text from Vietnamese Facebook groups and turning it into structured, geocoded listings automatically.
+
+    A typical post looks like this: "Can 2 nam vang lai san 583 Nguyen Trai, 19h-21h toi nay, trinh trung binh yeu, phi 50k". No JSON. No standard format. Vietnamese slang, relative time references, and a short address that Google Maps may or may not resolve correctly.
+    The Schema Contract
+
+    Before writing a single line of Go or prompting the LLM, I defined a strict JSON Schema: listing_extraction.schema.json. This schema describes every field the LLM must produce — sport, title, start_at in ISO 8601 UTC, skill level range, slots needed, price estimate, location name, and contact info — with types, enums, and required constraints.
+
+    The schema contract meant the LLM had one job: produce valid JSON matching this shape. Nothing else. No prose, no explanation. Just the object. This discipline paid off immediately: failures were binary. Either Go's JSON schema validator accepted the output, or it didn't. No ambiguous partial parses.
+
+    Prompt Design: The Hard Parts
+
+    Two things made prompt engineering genuinely difficult for this domain.
+
+    The first was skill level taxonomy. Vietnamese players use a rich, informal spectrum to describe ability: yeu, trung binh yeu, trung binh, trung binh kha, kha, ban chuyen, chuyen nghiep — and several in-between variants. These are not synonyms; they represent distinct rungs on a ladder the local community understands intuitively. I had to enumerate all variants in the system prompt and map them to DB slugs explicitly. Early iterations without this caused the LLM to collapse the entire range into just "trung_binh".
+
+    The second was relative time resolution. Posts say "toi nay" (tonight), "CN tuan sau" (next Sunday), or just "19h-21h". The LLM needs a reference date anchored to the Asia/Ho_Chi_Minh timezone to resolve these correctly before converting to UTC for storage. I inject the current local date and time into every user message so the model has a stable anchor. Without it, "toi nay" was being resolved to whatever the model's training data implied — completely wrong.
+
+    Validation in Go
+
+    The Go scraper uses a JSON schema validation library to check the LLM's response before doing anything else with it. If validation fails — hallucinated fields, wrong enum value, missing required key — the message goes to a dead-letter channel for logging and limited retry. Nothing partial ever reaches Rails.
+
+    This boundary was one of the best architectural decisions in the whole project. It kept the Rails ingest endpoint clean — it could trust the payload shape completely.
+
+    Geocoding: Cache-First with PostGIS
+
+    Short Vietnamese addresses are notoriously ambiguous. "583 Nguyen Trai" could be in Quan 1 or Quan 5. Repeated geocoding API calls for the same address are wasteful and expensive.
+
+    I built a geocoding_cache table in PostgreSQL keyed on the normalized location query string. Before calling Google Geocoding API, Rails checks this table. On a miss, it calls Google, stores the result as a geography point, and returns it. Cache hit rate in practice: over 80% after the first week, since many posts reference the same popular courts repeatedly.
+
+    Idempotency via source_url
+
+    Facebook post URLs are stable. Every scraped listing carries its source_url. A unique constraint on that column means re-running the scraper on the same post is a no-op — Rails returns the existing record. No duplicates accumulate even if the scraper processes the same group multiple times.
+
+    The ingest endpoint itself is HMAC-signed using a shared secret between Go and Rails. No authentication token to manage, no OAuth dance — just a signed request header that Rails verifies before processing.
+
+    Lessons From One Month of Building This
+
+    Prompt iteration is the real cost. Infrastructure takes hours to set up. Getting the LLM to reliably output the right skill level slug for every Vietnamese variant took days of examples and edge-case testing. Budget more time here than you think.
+
+    Vietnamese address geocoding has a ceiling. Some posts describe locations vaguely enough that even Google returns a district-level result, not a specific point. I accepted this: listings with a low-confidence coordinate get a nullable point and are hidden from the map feed until a background job retries with a better query.
+
+    Go and Rails as a pipeline pair works well. Go handles the concurrency, HTTP fetching, and strict validation cleanly. Rails owns the domain model, geocoding cache, and serving. The HMAC boundary between them is thin and auditable. I would not reach for a message queue for a project at this scale — a direct signed POST is simpler and easier to debug.
+  CONTENT
+  status: :published,
+  published_at: 14.days.ago,
+  featured: true,
+  category: cat_system
+)
+PostTag.find_or_create_by!(post: post4, tag: tag_go)
+PostTag.find_or_create_by!(post: post4, tag: tag_rails)
+PostTag.find_or_create_by!(post: post4, tag: tag_postgresql)
+PostTag.find_or_create_by!(post: post4, tag: tag_architecture)
+PostTag.find_or_create_by!(post: post4, tag: tag_postgis)
 
 # ==============================================================================
 # PROJECTS
@@ -424,16 +433,93 @@ ProjectVisual.find_or_create_by!(project: p_listtool, image_url: "https://picsum
   v.position = 1
 end
 
+# --- Project 5: SportMatch ---
+p_sportmatch = Project.find_or_initialize_by(slug: "sportmatch")
+p_sportmatch.update!(
+  title: "SportMatch — Find Your Sports Partner in Ho Chi Minh City",
+  summary: "A geo-aware listing platform for badminton and pickleball players to find teammates " \
+           "and join games — featuring a hybrid data pipeline (manual posts + LLM-extracted from " \
+           "Vietnamese social posts), PostGIS spatial search, and a React map interface. " \
+           "Built solo in one month.",
+  challenge: "Building a multi-service pipeline in Go + Rails that reliably extracts structured " \
+             "match listings from unstructured Vietnamese social media text, geocodes short Vietnamese " \
+             "addresses to GPS coordinates, and serves them on a real-time map — all within a solo " \
+             "1-month build with no prior Go production experience.",
+  solution: "Designed a Go scraper that feeds raw Facebook post text to an LLM constrained to a " \
+            "strict JSON schema; validated every output in Go before HMAC-signed ingest to Rails. " \
+            "Used PostGIS `geography(Point,4326)` with a geocoding cache table to make radius queries " \
+            "fast and API costs predictable. Built the map UI as a React island mounted inside the " \
+            "Rails layout (esbuild + jsbundling-rails) with Google Maps clustering by sport.",
+  status: :published,
+  featured: true,
+  published_at: 30.days.ago
+)
+
+ProjectMetric.find_or_create_by!(project: p_sportmatch, name: "Listing Ingestion") do |m|
+  m.legacy_value   = "Manual only"
+  m.improved_value = "Automated Go + LLM pipeline + manual hybrid"
+  m.position = 1
+end
+ProjectMetric.find_or_create_by!(project: p_sportmatch, name: "Geocoding Cost") do |m|
+  m.legacy_value   = "1 API call per listing"
+  m.improved_value = ">80% cache hit after week 1"
+  m.position = 2
+end
+ProjectMetric.find_or_create_by!(project: p_sportmatch, name: "Map Query") do |m|
+  m.legacy_value   = "N/A"
+  m.improved_value = "PostGIS ST_DWithin radius search"
+  m.position = 3
+end
+
+ProjectAchievement.find_or_create_by!(project: p_sportmatch, title: "LLM Extraction Pipeline") do |a|
+  a.description = "Go service converts raw Vietnamese Facebook posts to validated structured JSON " \
+                  "using an LLM constrained to a strict schema — including skill level slug mapping " \
+                  "and timezone-aware UTC time resolution."
+  a.position = 1
+end
+ProjectAchievement.find_or_create_by!(project: p_sportmatch, title: "PostGIS Spatial Search") do |a|
+  a.description = "Radius-based listing discovery using geography(Point,4326) and a GIST index — " \
+                  "players find games within X metres of their location in a single SQL query."
+  a.position = 2
+end
+ProjectAchievement.find_or_create_by!(project: p_sportmatch, title: "HMAC-Secured Ingest") do |a|
+  a.description = "Cryptographically signed ingest endpoint (shared HMAC secret) ensures only the " \
+                  "trusted Go scraper can push listings into Rails — no public API key to rotate."
+  a.position = 3
+end
+ProjectAchievement.find_or_create_by!(project: p_sportmatch, title: "Geocoding Cache") do |a|
+  a.description = "PostGIS-backed geocoding cache eliminates redundant Google API calls for popular " \
+                  "courts — the same court address is geocoded once and reused across all future listings."
+  a.position = 4
+end
+
+ProjectLink.find_or_create_by!(project: p_sportmatch, kind: "github", label: "GitHub") do |link|
+  link.url = "https://github.com/thaibhoang/giao-luu"
+  link.position = 1
+end
+
+ProjectVisual.find_or_create_by!(project: p_sportmatch, image_url: "https://picsum.photos/seed/sportmatch-map/900/500") do |v|
+  v.title = "Live Map View"
+  v.caption = "Badminton and pickleball listings clustered on Ho Chi Minh City map with sport-specific icons"
+  v.position = 1
+end
+ProjectVisual.find_or_create_by!(project: p_sportmatch, image_url: "https://picsum.photos/seed/sportmatch-pipeline/900/500") do |v|
+  v.title = "Extraction Pipeline"
+  v.caption = "Go scraper → LLM → JSON schema validation → HMAC ingest → Rails → PostGIS"
+  v.position = 2
+end
+
 puts "✅ Seed complete: Profile, Skills, Social Links, Experience, Categories, Tags, Posts, Projects"
 
 # ==============================================================================
 # PROJECT TAGS
 # ==============================================================================
 {
-  "aituber"  => [ tag_rails, tag_redis, tag_websocket, tag_sidekiq, tag_postgresql ],
-  "aiorder"  => [ tag_rails, tag_react, tag_ai, tag_postgresql, tag_websocket ],
-  "ainory"   => [ tag_rails, tag_postgresql, tag_redis, tag_websocket ],
-  "listtool" => [ tag_rails, tag_postgresql, tag_sidekiq ]
+  "aituber"     => [ tag_rails, tag_redis, tag_websocket, tag_sidekiq, tag_postgresql ],
+  "aiorder"     => [ tag_rails, tag_react, tag_ai, tag_postgresql, tag_websocket ],
+  "ainory"      => [ tag_rails, tag_postgresql, tag_redis, tag_websocket ],
+  "listtool"    => [ tag_rails, tag_postgresql, tag_sidekiq ],
+  "sportmatch"  => [ tag_rails, tag_go, tag_postgis, tag_postgresql, tag_docker, tag_architecture ]
 }.each do |slug, tags|
   project = Project.find_by!(slug: slug)
   tags.each do |tag|

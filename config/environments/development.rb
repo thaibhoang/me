@@ -38,7 +38,15 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = { host: "localhost", port: 8082 }
+
+  # Trust Nginx reverse proxy so redirect URLs use the correct host:port
+  config.action_dispatch.trusted_proxies = [
+    "127.0.0.1", "::1",
+    IPAddr.new("172.0.0.0/8"),   # Docker internal network range
+    IPAddr.new("10.0.0.0/8"),
+    IPAddr.new("192.168.0.0/16")
+  ]
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
