@@ -192,7 +192,7 @@ post4.update!(
            "badminton and pickleball meetups, extracts structured data, geocodes addresses in " \
            "Ho Chi Minh City, and feeds it into a Rails app — end to end in under 2 seconds per listing.",
   content: <<~CONTENT,
-    SportMatch is a side project I built solo over one month: a map-based platform where badminton and pickleball players in Ho Chi Minh City can find teammates and join games. The manual posting flow was straightforward Rails. The hard part was the other data source — scraping raw text from Vietnamese Facebook groups and turning it into structured, geocoded listings automatically.
+    SportyMatchy is a side project I built solo over one month: a map-based platform where badminton and pickleball players in Ho Chi Minh City can find teammates and join games. The manual posting flow was straightforward Rails. The hard part was the other data source — scraping raw text from Vietnamese Facebook groups and turning it into structured, geocoded listings automatically.
 
     A typical post looks like this: "Can 2 nam vang lai san 583 Nguyen Trai, 19h-21h toi nay, trinh trung binh yeu, phi 50k". No JSON. No standard format. Vietnamese slang, relative time references, and a short address that Google Maps may or may not resolve correctly.
     The Schema Contract
@@ -433,10 +433,10 @@ ProjectVisual.find_or_create_by!(project: p_listtool, image_url: "https://picsum
   v.position = 1
 end
 
-# --- Project 5: SportMatch ---
-p_sportmatch = Project.find_or_initialize_by(slug: "sportmatch")
-p_sportmatch.update!(
-  title: "SportMatch — Find Your Sports Partner in Ho Chi Minh City",
+# --- Project 5: SportyMatchy ---
+p_sportymatchy = Project.find_or_initialize_by(slug: "sportymatchy")
+p_sportymatchy.update!(
+  title: "SportyMatchy — Find Your Sports Partner in Ho Chi Minh City",
   summary: "A geo-aware listing platform for badminton and pickleball players to find teammates " \
            "and join games — featuring a hybrid data pipeline (manual posts + LLM-extracted from " \
            "Vietnamese social posts), PostGIS spatial search, and a React map interface. " \
@@ -455,55 +455,55 @@ p_sportmatch.update!(
   published_at: 30.days.ago
 )
 
-ProjectMetric.find_or_create_by!(project: p_sportmatch, name: "Listing Ingestion") do |m|
+ProjectMetric.find_or_create_by!(project: p_sportymatchy, name: "Listing Ingestion") do |m|
   m.legacy_value   = "Manual only"
   m.improved_value = "Automated Go + LLM pipeline + manual hybrid"
   m.position = 1
 end
-ProjectMetric.find_or_create_by!(project: p_sportmatch, name: "Geocoding Cost") do |m|
+ProjectMetric.find_or_create_by!(project: p_sportymatchy, name: "Geocoding Cost") do |m|
   m.legacy_value   = "1 API call per listing"
   m.improved_value = ">80% cache hit after week 1"
   m.position = 2
 end
-ProjectMetric.find_or_create_by!(project: p_sportmatch, name: "Map Query") do |m|
+ProjectMetric.find_or_create_by!(project: p_sportymatchy, name: "Map Query") do |m|
   m.legacy_value   = "N/A"
   m.improved_value = "PostGIS ST_DWithin radius search"
   m.position = 3
 end
 
-ProjectAchievement.find_or_create_by!(project: p_sportmatch, title: "LLM Extraction Pipeline") do |a|
+ProjectAchievement.find_or_create_by!(project: p_sportymatchy, title: "LLM Extraction Pipeline") do |a|
   a.description = "Go service converts raw Vietnamese Facebook posts to validated structured JSON " \
                   "using an LLM constrained to a strict schema — including skill level slug mapping " \
                   "and timezone-aware UTC time resolution."
   a.position = 1
 end
-ProjectAchievement.find_or_create_by!(project: p_sportmatch, title: "PostGIS Spatial Search") do |a|
+ProjectAchievement.find_or_create_by!(project: p_sportymatchy, title: "PostGIS Spatial Search") do |a|
   a.description = "Radius-based listing discovery using geography(Point,4326) and a GIST index — " \
                   "players find games within X metres of their location in a single SQL query."
   a.position = 2
 end
-ProjectAchievement.find_or_create_by!(project: p_sportmatch, title: "HMAC-Secured Ingest") do |a|
+ProjectAchievement.find_or_create_by!(project: p_sportymatchy, title: "HMAC-Secured Ingest") do |a|
   a.description = "Cryptographically signed ingest endpoint (shared HMAC secret) ensures only the " \
                   "trusted Go scraper can push listings into Rails — no public API key to rotate."
   a.position = 3
 end
-ProjectAchievement.find_or_create_by!(project: p_sportmatch, title: "Geocoding Cache") do |a|
+ProjectAchievement.find_or_create_by!(project: p_sportymatchy, title: "Geocoding Cache") do |a|
   a.description = "PostGIS-backed geocoding cache eliminates redundant Google API calls for popular " \
                   "courts — the same court address is geocoded once and reused across all future listings."
   a.position = 4
 end
 
-ProjectLink.find_or_create_by!(project: p_sportmatch, kind: "github", label: "GitHub") do |link|
+ProjectLink.find_or_create_by!(project: p_sportymatchy, kind: "github", label: "GitHub") do |link|
   link.url = "https://github.com/thaibhoang/giao-luu"
   link.position = 1
 end
 
-ProjectVisual.find_or_create_by!(project: p_sportmatch, image_url: "https://picsum.photos/seed/sportmatch-map/900/500") do |v|
+ProjectVisual.find_or_create_by!(project: p_sportymatchy, image_url: "https://picsum.photos/seed/sportymatchy-map/900/500") do |v|
   v.title = "Live Map View"
   v.caption = "Badminton and pickleball listings clustered on Ho Chi Minh City map with sport-specific icons"
   v.position = 1
 end
-ProjectVisual.find_or_create_by!(project: p_sportmatch, image_url: "https://picsum.photos/seed/sportmatch-pipeline/900/500") do |v|
+ProjectVisual.find_or_create_by!(project: p_sportymatchy, image_url: "https://picsum.photos/seed/sportymatchy-pipeline/900/500") do |v|
   v.title = "Extraction Pipeline"
   v.caption = "Go scraper → LLM → JSON schema validation → HMAC ingest → Rails → PostGIS"
   v.position = 2
@@ -519,7 +519,7 @@ puts "✅ Seed complete: Profile, Skills, Social Links, Experience, Categories, 
   "aiorder"     => [ tag_rails, tag_react, tag_ai, tag_postgresql, tag_websocket ],
   "ainory"      => [ tag_rails, tag_postgresql, tag_redis, tag_websocket ],
   "listtool"    => [ tag_rails, tag_postgresql, tag_sidekiq ],
-  "sportmatch"  => [ tag_rails, tag_go, tag_postgis, tag_postgresql, tag_docker, tag_architecture ]
+  "sportymatchy"  => [ tag_rails, tag_go, tag_postgis, tag_postgresql, tag_docker, tag_architecture ]
 }.each do |slug, tags|
   project = Project.find_by!(slug: slug)
   tags.each do |tag|
