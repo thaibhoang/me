@@ -4,8 +4,8 @@
 profile = Profile.first_or_initialize
 profile.update!(
   full_name: "Bùi Hoàng Thái",
-  headline: "Middle Software Engineer",
-  bio: "Middle Software Engineer with over 3 years of experience building scalable, data-intensive systems. " \
+  headline: "Software Engineer",
+  bio: "Software Engineer with over 4 years of experience building scalable, data-intensive systems. " \
        "I hold a degree in Foreign Economics from Foreign Trade University, providing me with a strong foundation " \
        "in business logic that complements my technical expertise. Since the start of my professional journey, " \
        "I have been a dedicated member of Amcolab Co., Ltd, specializing in Ruby on Rails, React.js, and " \
